@@ -1,0 +1,184 @@
+[
+  {
+    "id": "fast-beginner-crossbow",
+    "priority": 100,
+    "playstyles": ["Fast", "Ranged"],
+    "experienceLevels": ["Complete Beginner"],
+    "complexities": ["Very Simple", "Moderate", "Doesn't Matter"],
+    "buildTitle": "Mercenary Crossbow Starter",
+    "buildSlug": "poe2-mercenary-crossbow-starter-build",
+    "classTitle": "Mercenary Builds",
+    "classSlug": "mercenary",
+    "confidenceScore": 88,
+    "reasons": [
+      "Fast ranged play without asking you to learn a full caster rotation.",
+      "Clear skill jobs: Fragmentation Rounds for packs, High Velocity Rounds for rares and bosses, Escape Shot for safety.",
+      "Good first-route choice if you want weapon feel but still need readable campaign priorities.",
+      "The build stays practical as long as you do not add grenade layers too early."
+    ],
+    "suggestedSkillSlugs": ["fragmentation-rounds", "high-velocity-rounds", "escape-shot"],
+    "explanation": {
+      "playstyleFit": "This fits fast or ranged players because the crossbow loop rewards spacing, movement, and quick target swaps.",
+      "difficultyFit": "It is beginner-readable, but not fully hands-off. You still need to keep the crossbow upgraded and use Escape Shot before enemies close in.",
+      "learningCurve": "Learn one clear shot, one boss shot, and one escape tool first. Add grenades only after that loop feels stable.",
+      "strengths": "Strong early identity, clear skill roles, safe range, and direct links into Mercenary crossbow pages.",
+      "weaknesses": "Reload rhythm and tool swapping can feel busy if you wanted the simplest possible first character."
+    }
+  },
+  {
+    "id": "tanky-beginner-warrior",
+    "priority": 95,
+    "playstyles": ["Tanky"],
+    "experienceLevels": ["Complete Beginner", "Some ARPG Experience"],
+    "complexities": ["Very Simple", "Moderate", "Doesn't Matter"],
+    "buildTitle": "Warrior Leveling",
+    "buildSlug": "poe2-warrior-slam-starter-build",
+    "classTitle": "Warrior Builds",
+    "classSlug": "warrior",
+    "confidenceScore": 91,
+    "reasons": [
+      "Best fit when durability matters more than campaign speed.",
+      "Simple early priorities: slam for packs, direct hit for tougher enemies, defenses before luxury damage.",
+      "Forgives more positioning mistakes than fragile ranged or caster starters.",
+      "Good path for complete beginners who want fewer combat decisions."
+    ],
+    "suggestedSkillSlugs": ["rolling-slam", "boneshatter", "earthquake"],
+    "explanation": {
+      "playstyleFit": "Tanky players usually want time to read fights. Warrior gives that through heavier hits, armor priorities, and slower deliberate pacing.",
+      "difficultyFit": "This is one of the safer beginner recommendations because the build does not depend on fast combo timing.",
+      "learningCurve": "The curve is mostly about weapon upgrades, using slam skills before packs surround you, and learning boss tells without panic movement.",
+      "strengths": "Durability, simple gearing priorities, readable melee identity, and strong beginner patience.",
+      "weaknesses": "It will not feel as fast as Monk, Ranger, or Mercenary, and slow attacks punish weak weapons."
+    }
+  },
+  {
+    "id": "summoner-beginner-witch",
+    "priority": 95,
+    "playstyles": ["Summoner"],
+    "experienceLevels": ["Complete Beginner", "Some ARPG Experience"],
+    "complexities": ["Very Simple", "Moderate", "Doesn't Matter"],
+    "buildTitle": "Minion Witch",
+    "buildSlug": "poe2-beginner-minion-witch-build",
+    "classTitle": "Witch Builds",
+    "classSlug": "witch",
+    "confidenceScore": 93,
+    "reasons": [
+      "Minions create space while you learn movement, bosses, and flask timing.",
+      "The first version is easy to understand: keep minions alive, stay safe, add one support button.",
+      "Better for cautious players than active melee or reload-heavy weapon routes.",
+      "The build has direct skill links for Skeletal Warrior, Skeletal Sniper, and Raise Spectre."
+    ],
+    "suggestedSkillSlugs": ["skeletal-warrior", "skeletal-sniper", "raise-spectre"],
+    "explanation": {
+      "playstyleFit": "Summoner players want allies to absorb pressure. Minion Witch is the clearest route for that job.",
+      "difficultyFit": "It is a strong complete-beginner fit because mistakes are less punishing when minions are holding attention.",
+      "learningCurve": "The main learning curve is minion uptime and positioning. You can learn the campaign without mastering a fast damage rotation first.",
+      "strengths": "Safe pacing, beginner-friendly fight reading, low melee risk, and a clean class identity.",
+      "weaknesses": "It is weaker for players who want direct weapon impact or dislike managing minion state."
+    }
+  },
+  {
+    "id": "spellcaster-beginner-flame-wall",
+    "priority": 90,
+    "playstyles": ["Spellcaster"],
+    "experienceLevels": ["Complete Beginner", "Some ARPG Experience"],
+    "complexities": ["Very Simple", "Moderate", "Doesn't Matter"],
+    "buildTitle": "Flame Wall Witch Starter",
+    "buildSlug": "poe2-sorceress-flame-wall-build",
+    "classTitle": "Witch Builds",
+    "classSlug": "witch",
+    "confidenceScore": 84,
+    "reasons": [
+      "Good caster route when you want spell damage but do not want a huge rotation.",
+      "Flame Wall teaches setup casting without turning the whole build into a planner problem.",
+      "Works well as a support layer for Spark, Fireball, or other simple spell packages.",
+      "Best when you are comfortable placing damage before tougher enemies reach you."
+    ],
+    "suggestedSkillSlugs": ["flame-wall", "spark", "fireball"],
+    "explanation": {
+      "playstyleFit": "Spellcaster players get a clear caster decision: use Flame Wall as the support layer, then decide whether Spark or Fireball is carrying the route.",
+      "difficultyFit": "It fits beginners who want spells, but it asks for a little setup timing. It is not as passive as Minion Witch.",
+      "learningCurve": "Learn when to place Flame Wall before rares and bosses. Do not add several setup skills before your main clear spell feels stable.",
+      "strengths": "Readable caster identity, strong support-skill logic, and useful links into Flame Wall and caster build pages.",
+      "weaknesses": "It can feel clunky if you wanted one-button clearing or if movement and defenses are still weak."
+    }
+  },
+  {
+    "id": "melee-fast-monk",
+    "priority": 85,
+    "playstyles": ["Melee", "Fast"],
+    "experienceLevels": ["Some ARPG Experience", "Experienced"],
+    "complexities": ["Moderate", "Doesn't Matter"],
+    "buildTitle": "Monk Leveling",
+    "buildSlug": "poe2-monk-leveling-build",
+    "classTitle": "Monk Builds",
+    "classSlug": "monk",
+    "confidenceScore": 86,
+    "reasons": [
+      "Best fit when you want active melee speed instead of slow tank pacing.",
+      "Monk has clear payoff skills: Falling Thunder for identity, Tempest Bell for tougher enemies, Killing Palm for finishers.",
+      "Rewards movement and timing, which suits players with some ARPG experience.",
+      "Keeps the first route focused instead of mixing random melee and ranged ideas."
+    ],
+    "suggestedSkillSlugs": ["falling-thunder", "tempest-bell", "killing-palm"],
+    "explanation": {
+      "playstyleFit": "Fast melee players usually want movement and timing. Monk fits that better than Warrior.",
+      "difficultyFit": "This is better for players with some ARPG experience because the build asks you to move, time hits, and avoid trading too often.",
+      "learningCurve": "Commit to one Monk damage identity first, then add Tempest Bell when single-target payoff becomes the issue.",
+      "strengths": "High tempo, strong class fantasy, clear skill progression, and good internal links into Monk pages.",
+      "weaknesses": "Not ideal for low-input play, face-tanking, or players who want minions to handle pressure."
+    }
+  },
+  {
+    "id": "ranged-simple-ranger",
+    "priority": 60,
+    "playstyles": ["Ranged"],
+    "experienceLevels": ["Some ARPG Experience", "Experienced"],
+    "complexities": ["Very Simple", "Moderate", "Doesn't Matter"],
+    "buildTitle": "Ranger Lightning Arrow Starter",
+    "buildSlug": "poe2-ranger-lightning-arrow-starter-build",
+    "classTitle": "Ranger Builds",
+    "classSlug": "ranger",
+    "confidenceScore": 79,
+    "reasons": [
+      "Good ranged choice if you want familiar bow clear instead of crossbow rhythm.",
+      "Simple skill package: one bow clear tool, one escape answer, and steady weapon upgrades.",
+      "Better for players who value distance and movement over durability.",
+      "Cleaner than hybrid routes if you already know you want bows."
+    ],
+    "suggestedSkillSlugs": ["lightning-arrow", "escape-shot", "rain-of-arrows"],
+    "explanation": {
+      "playstyleFit": "Ranged players who prefer bows over crossbows get a more familiar campaign rhythm here.",
+      "difficultyFit": "The route is easy to understand, but it still asks for movement because Ranger is not built to stand still.",
+      "learningCurve": "Keep Lightning Arrow as the clear identity and upgrade bow damage before adding secondary packages.",
+      "strengths": "Fast clear, familiar ranged gameplay, and simple route ownership.",
+      "weaknesses": "Less forgiving than Warrior and less protected than Minion Witch when positioning goes wrong."
+    }
+  },
+  {
+    "id": "experienced-flex-druid",
+    "priority": 20,
+    "playstyles": ["Melee", "Spellcaster"],
+    "experienceLevels": ["Experienced"],
+    "complexities": ["Doesn't Matter"],
+    "buildTitle": "Druid Hybrid Starter",
+    "buildSlug": "poe2-druid-hybrid-starter-build",
+    "classTitle": "Beginner Builds",
+    "classSlug": "beginner",
+    "confidenceScore": 67,
+    "reasons": [
+      "Only recommended when you already accept hybrid uncertainty.",
+      "Good for players who want to experiment instead of following the safest documented route.",
+      "Works best when you choose melee-first or spell-first early instead of splitting gear priorities.",
+      "Useful fallback for experienced players who do not care about complexity."
+    ],
+    "suggestedSkillSlugs": ["frostbolt", "earthquake", "orb-of-storms"],
+    "explanation": {
+      "playstyleFit": "Druid fits players who want hybrid melee and spell decisions instead of a narrow first-character route.",
+      "difficultyFit": "This is not a complete-beginner recommendation. It belongs to experienced players who can adapt as guidance changes.",
+      "learningCurve": "The hard part is choosing one early identity and not spreading upgrades across every possible tool.",
+      "strengths": "Flexible fantasy, room to experiment, and a strong fit for players who enjoy testing.",
+      "weaknesses": "Less documented, less direct, and easier to make messy than the safer starter routes."
+    }
+  }
+]

@@ -1,0 +1,6 @@
+.next
+node_modules
+*.log
+.env*
+PROJECT_STATE.md
+NEXT_ACTIONS.md

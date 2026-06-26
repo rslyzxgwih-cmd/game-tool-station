@@ -31,26 +31,50 @@ const cards = [
 export default function HomePage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-6">
-      <section className="border-b border-line pb-5">
-        <h1 className="max-w-4xl text-3xl font-black leading-tight text-ink md:text-4xl">
+      <section className="border-b border-line pb-[0.65rem]">
+        <h1 className="max-w-4xl text-[1.75rem] font-extrabold leading-tight text-ink md:text-[2.125rem]">
           POE2 Builds & Skills – Best Leveling and Endgame Guides
         </h1>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-ink/68">
+        <p className="mt-[0.65rem] max-w-3xl text-sm leading-6 text-ink/68">
           Find optimized builds, skills, and leveling paths for every class in Path of Exile 2.
         </p>
         <Link
           href="/builds"
-          className="mt-4 inline-flex min-h-11 items-center justify-center border border-ink bg-ink px-4 py-2 text-xs font-black uppercase text-white hover:bg-moss"
+          className="mt-[0.65rem] inline-flex min-h-9 items-center justify-center border border-line bg-paper px-3 py-1.5 text-xs font-bold uppercase text-ink/55 hover:border-moss hover:text-ink/75"
         >
           Browse Builds
         </Link>
       </section>
 
-      <section className="mt-4 grid gap-3 md:grid-cols-3">
+      <section className="mt-4 border-4 border-ink bg-panel p-6 shadow-xl md:p-8">
+        <h2 className="max-w-4xl text-3xl font-black leading-tight text-ink md:text-4xl">
+          <Link href="/builds/monk" className="hover:text-moss">
+            POE2 Monk Build
+          </Link>{" "}
+          <span className="text-ink/72">(Tempest Bell Focus)</span>
+        </h2>
+        <p className="mt-4 max-w-2xl text-lg font-black leading-7 text-ink/80">
+          Best beginner leveling build for fast progression in Path of Exile 2.
+        </p>
+        <Link
+          href="/builds/monk"
+          className="mt-6 inline-flex min-h-14 items-center justify-center border-2 border-ink bg-moss px-6 py-4 text-base font-black uppercase text-white hover:bg-ink"
+        >
+          POE2 Monk Build
+        </Link>
+        <Link
+          href="/tools/exitlag"
+          className="ml-0 mt-3 inline-flex min-h-10 items-center justify-center border border-line bg-paper px-4 py-2 text-xs font-black uppercase text-ink/70 hover:border-moss hover:text-ink md:ml-3"
+        >
+          POE2 lag fix
+        </Link>
+      </section>
+
+      <section aria-label="Secondary exploration" className="mt-7 grid gap-3 md:grid-cols-3">
         {cards.map((card) => (
-          <Link key={card.href} href={card.href} className="border border-line bg-panel p-4 hover:border-moss">
-            <h2 className="text-lg font-black text-ink">{card.title}</h2>
-            <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/70">
+          <Link key={card.href} href={card.href} className="border border-line bg-paper/70 p-3 text-ink/65 hover:border-moss hover:bg-paper">
+            <h2 className="text-base font-black text-ink/78">{card.title}</h2>
+            <ul className="mt-2 grid gap-1.5 text-sm leading-6 text-ink/58">
               {card.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}

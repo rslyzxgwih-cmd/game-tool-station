@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { TranslateButton } from "./TranslateButton";
 
 const navItems = [
   { href: "/builds", label: "Builds" },
@@ -20,20 +19,17 @@ export function SiteHeader() {
             <span className="block text-xs font-medium text-ink/58">Best builds / Beginner leveling / Core Skills</span>
           </span>
         </Link>
-        <div className="flex flex-wrap items-center justify-end gap-1 text-sm font-bold text-ink/72">
-          <nav className="flex flex-wrap items-center justify-end gap-1 text-sm font-bold text-ink/72">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="border border-transparent px-3 py-2 transition hover:border-line hover:bg-paper hover:text-ink focus:outline-none focus:ring-2 focus:ring-moss"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <TranslateButton />
-        </div>
+        <nav className="flex flex-wrap items-center justify-end gap-1 text-sm font-bold text-ink/72">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="border border-transparent px-3 py-2 transition hover:border-line hover:bg-paper hover:text-ink focus:outline-none focus:ring-2 focus:ring-moss"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   );

@@ -72,6 +72,15 @@ export default function BuildsPage() {
       </section>
 
       <section className="mt-4 border border-line bg-panel p-4">
+        <h2 className="text-base font-black text-ink">Featured Build: POE2 Monk Build</h2>
+        <div className="mt-3 grid gap-2 text-sm font-bold">
+          <Link href="/builds/monk" className="border border-line bg-paper px-3 py-2 text-moss hover:text-ink">
+            Best POE2 Monk Build (Tempest Bell) - Beginner Friendly Leveling
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-4 border border-line bg-panel p-4">
         <h2 className="text-base font-black text-ink">Related Builds</h2>
         <div className="mt-3 grid gap-2 text-sm font-bold text-moss">
           {relatedBuilds.map((build) => (

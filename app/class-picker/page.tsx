@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ClassPicker } from "@/components/ClassPicker";
 import { JsonLd } from "@/components/JsonLd";
 import { absoluteUrl } from "@/lib/seo";
@@ -42,14 +43,12 @@ export default function ClassPickerPage() {
         <p className="mt-2 text-sm leading-6 text-ink/70">
           If every class feels delayed, fix routing before changing your starter choice. ExitLag is the first check for unstable POE2 latency.
         </p>
-        <a
-          href="https://www.exitlag.com/refer/10318560"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/tools/exitlag"
           className="mt-3 inline-flex border border-ink bg-ink px-3 py-2 text-xs font-black uppercase text-white hover:bg-moss"
         >
-          Fix lag instantly
-        </a>
+          Reduce combat delay
+        </Link>
       </section>
     </main>
   );

@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/skills/flame-wall/builds",
     "/skills/time-of-need/builds",
     "/class-picker",
+    "/tools/exitlag",
   ].map((route) => ({
     url: absoluteUrl(route || "/"),
     lastModified: new Date(),

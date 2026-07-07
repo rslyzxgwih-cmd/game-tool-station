@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { NextActionEngine } from "@/components/NextActionEngine";
 
 export const metadata: Metadata = {
-  title: "POE2 Builds & Skills – Best POE2 Build Guide (Leveling + Endgame)",
+  title: "POE2 Builds & Skills - Decision Engine for Starter Builds",
   description:
-    "Best POE2 builds, skills, and leveling paths for every class in Path of Exile 2.",
+    "Get a POE2 diagnosis for your current situation, then choose the next build, skill, or leveling action.",
   alternates: {
     canonical: "/",
   },
@@ -33,10 +34,10 @@ export default function HomePage() {
     <main className="mx-auto max-w-7xl px-4 py-6">
       <section className="border-b border-line pb-[0.65rem]">
         <h1 className="max-w-4xl text-[1.75rem] font-extrabold leading-tight text-ink md:text-[2.125rem]">
-          POE2 Builds & Skills – Best Leveling and Endgame Guides
+          POE2 Decision Engine for Builds, Skills, and Leveling
         </h1>
         <p className="mt-[0.65rem] max-w-3xl text-sm leading-6 text-ink/68">
-          Find optimized builds, skills, and leveling paths for every class in Path of Exile 2.
+          Answer a few situation questions and get the next best action for your POE2 character.
         </p>
         <Link
           href="/builds"
@@ -45,6 +46,8 @@ export default function HomePage() {
           Browse Builds
         </Link>
       </section>
+
+      <NextActionEngine />
 
       <section className="mt-4 border-4 border-ink bg-panel p-6 shadow-xl md:p-8">
         <h2 className="max-w-4xl text-3xl font-black leading-tight text-ink md:text-4xl">

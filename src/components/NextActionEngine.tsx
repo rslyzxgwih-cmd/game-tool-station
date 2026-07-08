@@ -19,7 +19,7 @@ type Recommendation = {
 };
 
 const fieldClass =
-  "border border-white/15 bg-[#080d10] px-3 py-2 text-sm font-bold text-white outline-none focus:border-emerald-300 focus:ring-2 focus:ring-emerald-300/40";
+  "bg-black/28 px-3 py-2 text-sm font-bold text-white outline-none ring-1 ring-white/12 backdrop-blur focus:ring-2 focus:ring-amber-200/60";
 
 const options = {
   campaign: [
@@ -216,11 +216,11 @@ export function NextActionEngine() {
   );
 
   return (
-    <section className="mt-6 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-      <div className="border border-white/10 bg-[#0b1013]/95 p-4 shadow-[0_24px_70px_rgba(0,0,0,0.26)]">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-300">Interactive diagnosis</p>
-        <h2 className="mt-1 text-2xl font-black text-white">Find Your Next Action</h2>
-        <p className="mt-2 text-sm leading-6 text-white/62">
+    <section className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="bg-black/46 p-5 shadow-[0_28px_90px_rgba(0,0,0,0.34)] ring-1 ring-white/10 backdrop-blur-md">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-200">Interactive diagnosis</p>
+        <h2 className="mt-1 text-3xl font-black leading-tight text-white">Find Your Next Action</h2>
+        <p className="mt-3 text-sm leading-6 text-white/62">
           Tell the engine where your character is stuck, then use the recommended POE2 Builds, Skills, or Starter Builds.
         </p>
         <div className="mt-4 grid gap-3">
@@ -277,10 +277,10 @@ export function NextActionEngine() {
         </div>
       </div>
 
-      <article className="border border-emerald-300/20 bg-[linear-gradient(135deg,rgba(16,185,129,0.12),rgba(9,13,16,0.98))] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.3)]">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-amber-200">Diagnosis</p>
-        <h2 className="mt-1 text-2xl font-black leading-tight text-white">What you should do next</h2>
-        <div className="mt-3 border border-white/10 bg-white/[0.05] px-3 py-2 text-sm leading-6">
+      <article className="bg-[linear-gradient(135deg,rgba(16,185,129,0.13),rgba(7,9,10,0.88))] p-5 shadow-[0_28px_90px_rgba(0,0,0,0.36)] ring-1 ring-emerald-200/16 backdrop-blur-md">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-200">Diagnosis</p>
+        <h2 className="mt-1 text-3xl font-black leading-tight text-white">What you should do next</h2>
+        <div className="mt-4 bg-white/[0.055] px-3 py-3 text-sm leading-6 ring-1 ring-white/10">
           <span className="font-black text-white">Player stage: </span>
           <span className="font-black text-emerald-300">{recommendation.stage}</span>
           <p className="mt-1 text-white/62">{recommendation.stageReason}</p>
@@ -290,7 +290,7 @@ export function NextActionEngine() {
         <h3 className="mt-4 text-base font-black text-white">Recommended next actions</h3>
         <ol className="mt-2 grid gap-2 text-sm leading-6 text-white/72">
           {recommendation.actions.map((action) => (
-            <li key={action} className="border border-white/10 bg-white/[0.05] px-3 py-2">
+            <li key={action} className="bg-white/[0.055] px-3 py-2 ring-1 ring-white/10">
               {action}
             </li>
           ))}
@@ -299,7 +299,7 @@ export function NextActionEngine() {
         <h3 className="mt-4 text-base font-black text-white">Supporting guides and tools</h3>
         <div className="mt-2 grid gap-2">
           {recommendation.links.map((item) => (
-            <Link key={item.href} href={item.href} className="border border-white/10 bg-[#080d10] px-3 py-2 text-sm hover:border-emerald-300/60">
+            <Link key={item.href} href={item.href} className="bg-black/28 px-3 py-2 text-sm ring-1 ring-white/10 hover:ring-emerald-200/44">
               <span className="block font-black text-emerald-300">{item.label}</span>
               <span className="block leading-6 text-white/62">{item.note}</span>
             </Link>

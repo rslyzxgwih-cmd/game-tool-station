@@ -18,7 +18,8 @@ type Recommendation = {
   links: { href: string; label: string; note: string }[];
 };
 
-const fieldClass = "border border-line bg-white px-3 py-2 text-sm font-bold text-ink outline-none focus:ring-2 focus:ring-moss";
+const fieldClass =
+  "border border-white/15 bg-[#080d10] px-3 py-2 text-sm font-bold text-white outline-none focus:border-emerald-300 focus:ring-2 focus:ring-emerald-300/40";
 
 const options = {
   campaign: [
@@ -215,12 +216,15 @@ export function NextActionEngine() {
   );
 
   return (
-    <section className="mt-5 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-      <div className="border border-line bg-panel p-4">
-        <p className="text-xs font-black uppercase text-moss">Player Journey Engine MVP</p>
-        <h2 className="mt-1 text-xl font-black text-ink">Where are you now?</h2>
+    <section className="mt-6 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="border border-white/10 bg-[#0b1013]/95 p-4 shadow-[0_24px_70px_rgba(0,0,0,0.26)]">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-300">Interactive diagnosis</p>
+        <h2 className="mt-1 text-2xl font-black text-white">Find Your Next Action</h2>
+        <p className="mt-2 text-sm leading-6 text-white/62">
+          Tell the engine where your character is stuck, then use the recommended POE2 Builds, Skills, or Starter Builds.
+        </p>
         <div className="mt-4 grid gap-3">
-          <label className="grid gap-1 text-sm font-black text-ink">
+          <label className="grid gap-1 text-sm font-black text-white">
             Campaign status
             <select className={fieldClass} value={campaign} onChange={(event) => setCampaign(event.target.value as CampaignStatus)}>
               {options.campaign.map((item) => (
@@ -230,7 +234,7 @@ export function NextActionEngine() {
               ))}
             </select>
           </label>
-          <label className="grid gap-1 text-sm font-black text-ink">
+          <label className="grid gap-1 text-sm font-black text-white">
             Atlas progress
             <select className={fieldClass} value={atlas} onChange={(event) => setAtlas(event.target.value as AtlasProgress)}>
               {options.atlas.map((item) => (
@@ -240,7 +244,7 @@ export function NextActionEngine() {
               ))}
             </select>
           </label>
-          <label className="grid gap-1 text-sm font-black text-ink">
+          <label className="grid gap-1 text-sm font-black text-white">
             Current level
             <select className={fieldClass} value={level} onChange={(event) => setLevel(event.target.value as LevelBand)}>
               {options.level.map((item) => (
@@ -250,7 +254,7 @@ export function NextActionEngine() {
               ))}
             </select>
           </label>
-          <label className="grid gap-1 text-sm font-black text-ink">
+          <label className="grid gap-1 text-sm font-black text-white">
             Experience level
             <select className={fieldClass} value={experience} onChange={(event) => setExperience(event.target.value as Experience)}>
               {options.experience.map((item) => (
@@ -260,7 +264,7 @@ export function NextActionEngine() {
               ))}
             </select>
           </label>
-          <label className="grid gap-1 text-sm font-black text-ink">
+          <label className="grid gap-1 text-sm font-black text-white">
             Main goal
             <select className={fieldClass} value={goal} onChange={(event) => setGoal(event.target.value as MainGoal)}>
               {options.goal.map((item) => (
@@ -273,31 +277,31 @@ export function NextActionEngine() {
         </div>
       </div>
 
-      <article className="border-4 border-ink bg-white p-4 shadow-lg">
-        <p className="text-xs font-black uppercase text-ember">Diagnosis</p>
-        <h2 className="mt-1 text-2xl font-black leading-tight text-ink">What you should do next</h2>
-        <div className="mt-3 border border-line bg-paper px-3 py-2 text-sm leading-6">
-          <span className="font-black text-ink">Player stage: </span>
-          <span className="font-black text-moss">{recommendation.stage}</span>
-          <p className="mt-1 text-ink/64">{recommendation.stageReason}</p>
+      <article className="border border-emerald-300/20 bg-[linear-gradient(135deg,rgba(16,185,129,0.12),rgba(9,13,16,0.98))] p-4 shadow-[0_24px_70px_rgba(0,0,0,0.3)]">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-amber-200">Diagnosis</p>
+        <h2 className="mt-1 text-2xl font-black leading-tight text-white">What you should do next</h2>
+        <div className="mt-3 border border-white/10 bg-white/[0.05] px-3 py-2 text-sm leading-6">
+          <span className="font-black text-white">Player stage: </span>
+          <span className="font-black text-emerald-300">{recommendation.stage}</span>
+          <p className="mt-1 text-white/62">{recommendation.stageReason}</p>
         </div>
-        <p className="mt-3 text-sm leading-6 text-ink/72">{recommendation.diagnosis}</p>
+        <p className="mt-3 text-sm leading-6 text-white/70">{recommendation.diagnosis}</p>
 
-        <h3 className="mt-4 text-base font-black text-ink">Recommended next actions</h3>
-        <ol className="mt-2 grid gap-2 text-sm leading-6 text-ink/72">
+        <h3 className="mt-4 text-base font-black text-white">Recommended next actions</h3>
+        <ol className="mt-2 grid gap-2 text-sm leading-6 text-white/72">
           {recommendation.actions.map((action) => (
-            <li key={action} className="border border-line bg-paper px-3 py-2">
+            <li key={action} className="border border-white/10 bg-white/[0.05] px-3 py-2">
               {action}
             </li>
           ))}
         </ol>
 
-        <h3 className="mt-4 text-base font-black text-ink">Supporting guides and tools</h3>
+        <h3 className="mt-4 text-base font-black text-white">Supporting guides and tools</h3>
         <div className="mt-2 grid gap-2">
           {recommendation.links.map((item) => (
-            <Link key={item.href} href={item.href} className="border border-line bg-panel px-3 py-2 text-sm hover:border-moss">
-              <span className="block font-black text-moss">{item.label}</span>
-              <span className="block leading-6 text-ink/64">{item.note}</span>
+            <Link key={item.href} href={item.href} className="border border-white/10 bg-[#080d10] px-3 py-2 text-sm hover:border-emerald-300/60">
+              <span className="block font-black text-emerald-300">{item.label}</span>
+              <span className="block leading-6 text-white/62">{item.note}</span>
             </Link>
           ))}
         </div>

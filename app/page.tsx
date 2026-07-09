@@ -85,30 +85,38 @@ const recommendedBuilds = [
   {
     href: "/builds/poe2-mercenary-crossbow-starter-build",
     title: "Mercenary Crossbow Starter Build",
+    category: "Ranged Starter",
     difficulty: "Easy",
     image: "/images/builds/mercenary.webp",
-    description: "Ranged control, clear skill roles, and weapon upgrades that are easy to understand.",
+    playerFit: "Best for new players who want safe damage and clear weapon upgrades.",
+    description: "A steady crossbow route with ranged control and simple combat decisions.",
   },
   {
     href: "/builds/monk-crossbow-build",
     title: "Monk Crossbow Build",
+    category: "Hybrid Monk",
     difficulty: "Medium",
     image: "/images/builds/monk.webp",
-    description: "A hybrid route for players testing crossbow range with Monk payoff timing.",
+    playerFit: "Best for players who want mobility, timing windows, and ranged pressure.",
+    description: "A hybrid character path built around crossbow range and Monk payoff timing.",
   },
   {
     href: "/builds/poe2-monk-tempest-bell-build",
     title: "Invoker Build",
+    category: "Burst Caster",
     difficulty: "Medium",
     image: "/images/builds/invoker.webp",
-    description: "A burst-focused Monk path built around timing windows and payoff skills.",
+    playerFit: "Best for players who enjoy setup, burst windows, and magic payoff moments.",
+    description: "A spell-forward route that rewards timing and controlled burst damage.",
   },
   {
     href: "/builds/poe2-ranger-lightning-arrow-starter-build",
     title: "Lightning Arrow Farming Build",
+    category: "Fast Clear",
     difficulty: "Easy",
     image: "/images/builds/lightning-arrow.webp",
-    description: "Fast bow clear for players who want speed, distance, and smoother farming.",
+    playerFit: "Best for players who want speed, distance, and smoother farming loops.",
+    description: "A bow-focused selection for fast clears and low-friction map movement.",
   },
 ];
 
@@ -122,31 +130,51 @@ const toolCards = [
 export default function HomePage() {
   return (
     <main className="relative isolate overflow-hidden bg-[#030304] text-white">
+      <nav className="relative z-20 mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
+        <Link href="/" className="text-sm font-black uppercase tracking-[0.24em] text-amber-100">
+          POE2 Starter Tools
+        </Link>
+        <div className="hidden items-center gap-5 text-xs font-black uppercase tracking-[0.16em] text-white/58 md:flex">
+          <Link href="/builds" className="hover:text-amber-100">
+            Builds
+          </Link>
+          <Link href="/skills" className="hover:text-amber-100">
+            Skills
+          </Link>
+          <Link href="/builds/beginner" className="hover:text-amber-100">
+            Starter Builds
+          </Link>
+          <Link href="/class-picker" className="hover:text-amber-100">
+            Class Picker
+          </Link>
+        </div>
+      </nav>
+
       <section
-        className="relative min-h-[680px] overflow-hidden"
+        className="relative -mt-20 min-h-[820px] overflow-hidden pt-20"
         style={{
-          backgroundImage: `linear-gradient(90deg,rgba(3,3,4,0.96)_0%,rgba(3,3,4,0.78)_46%,rgba(3,3,4,0.22)_100%),linear-gradient(180deg,rgba(3,3,4,0.1)_0%,#030304_94%),url('${heroBackground}')`,
-          backgroundPosition: "center top",
+          backgroundImage: `linear-gradient(90deg,rgba(3,3,4,0.72) 0%,rgba(3,3,4,0.38) 46%,rgba(3,3,4,0.08) 100%),linear-gradient(180deg,rgba(3,3,4,0) 0%,rgba(3,3,4,0.18) 62%,#030304 98%),url('${heroBackground}')`,
+          backgroundPosition: "center center",
           backgroundSize: "cover",
         }}
       >
-        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,rgba(245,158,11,0.16),transparent_24%),radial-gradient(circle_at_20%_28%,rgba(147,51,234,0.2),transparent_26%)]" />
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#030304] to-transparent" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_72%_22%,rgba(245,158,11,0.14),transparent_24%),radial-gradient(circle_at_20%_28%,rgba(147,51,234,0.14),transparent_26%),radial-gradient(circle_at_52%_58%,rgba(59,130,246,0.1),transparent_34%)]" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#030304] to-transparent" />
 
-        <div className="relative mx-auto flex min-h-[680px] max-w-7xl flex-col justify-between px-4 py-8 md:py-10">
+        <div className="relative mx-auto flex min-h-[760px] max-w-7xl flex-col justify-between px-4 py-8 md:py-10">
           <div className="max-w-4xl pt-10 md:pt-20">
             <p className="text-xs font-black uppercase tracking-[0.26em] text-amber-200">POE2 companion product</p>
-            <h1 className="mt-5 max-w-5xl text-[2.7rem] font-black leading-[0.95] text-white md:text-[5.7rem]">
+            <h1 className="mt-5 max-w-6xl text-[3.05rem] font-black leading-[0.92] text-white drop-shadow-[0_10px_42px_rgba(0,0,0,0.72)] md:text-[6.4rem]">
               Find your next Path of Exile 2 build.
             </h1>
             <p className="mt-6 max-w-2xl text-base font-bold leading-7 text-white/72 md:text-xl md:leading-8">
               Choose your goal. We'll help you find the right build, skills, and progression path.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/builds/beginner" className="inline-flex min-h-12 items-center justify-center bg-amber-200 px-5 py-3 text-xs font-black uppercase tracking-[0.16em] text-zinc-950 shadow-[0_0_36px_rgba(245,158,11,0.22)] hover:bg-white">
+              <Link href="/builds/beginner" className="inline-flex min-h-14 items-center justify-center bg-amber-200 px-6 py-4 text-xs font-black uppercase tracking-[0.16em] text-zinc-950 shadow-[0_0_56px_rgba(245,158,11,0.36)] ring-1 ring-amber-100/60 hover:bg-white">
                 Start with a build
               </Link>
-              <Link href="/skills" className="inline-flex min-h-12 items-center justify-center bg-white/10 px-5 py-3 text-xs font-black uppercase tracking-[0.16em] text-white/86 ring-1 ring-white/18 hover:bg-white hover:text-zinc-950">
+              <Link href="/skills" className="inline-flex min-h-14 items-center justify-center bg-black/32 px-6 py-4 text-xs font-black uppercase tracking-[0.16em] text-white/90 ring-1 ring-white/28 backdrop-blur hover:bg-white hover:text-zinc-950">
                 Explore skills
               </Link>
             </div>
@@ -171,10 +199,6 @@ export default function HomePage() {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 pb-10">
-        <section className="-mt-8 relative z-10">
-          <NextActionEngine />
-        </section>
-
         <section className="mt-10">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
@@ -188,22 +212,28 @@ export default function HomePage() {
 
           <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {recommendedBuilds.map((build) => (
-              <Link key={build.title} href={build.href} className="group overflow-hidden bg-[#070809] text-white shadow-[0_28px_80px_rgba(0,0,0,0.34)] ring-1 ring-white/10 hover:ring-amber-200/44">
+              <Link key={build.title} href={build.href} className="group overflow-hidden bg-[#070809] text-white shadow-[0_28px_80px_rgba(0,0,0,0.34)] ring-1 ring-white/10 transition duration-200 hover:-translate-y-1 hover:ring-amber-200/44">
                 <div
-                  className="relative aspect-[4/3] bg-zinc-900"
+                  className="relative aspect-video overflow-hidden bg-zinc-900"
                   style={{
-                    backgroundImage: `linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.82)),url('${build.image}')`,
-                    backgroundPosition: "center",
+                    backgroundImage: `linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 52%,rgba(0,0,0,0.56) 100%),url('${build.image}')`,
+                    backgroundPosition: "center 38%",
                     backgroundSize: "cover",
                   }}
                 >
-                  <span className="absolute left-3 top-3 bg-black/44 px-2 py-1 text-[0.65rem] font-black uppercase tracking-[0.14em] text-white/86 ring-1 ring-white/18">
+                  <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/34 via-transparent to-black/10 transition duration-200 group-hover:from-black/18" />
+                  <span className="absolute left-3 top-3 bg-amber-200 px-2.5 py-1 text-[0.62rem] font-black uppercase tracking-[0.14em] text-zinc-950 shadow-[0_0_22px_rgba(245,158,11,0.26)]">
+                    {build.category}
+                  </span>
+                  <span className="absolute right-3 top-3 bg-black/48 px-2.5 py-1 text-[0.62rem] font-black uppercase tracking-[0.14em] text-white/90 ring-1 ring-white/18">
                     {build.difficulty}
                   </span>
                 </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-black leading-tight group-hover:text-amber-100">{build.title}</h3>
-                  <p className="mt-3 text-sm font-semibold leading-6 text-white/62">{build.description}</p>
+                <div className="border-t border-white/10 p-4">
+                  <p className="text-[0.62rem] font-black uppercase tracking-[0.16em] text-amber-200/80">Character Selection</p>
+                  <h3 className="mt-2 text-lg font-black leading-tight group-hover:text-amber-100">{build.title}</h3>
+                  <p className="mt-3 text-sm font-bold leading-6 text-white/76">{build.playerFit}</p>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-white/54">{build.description}</p>
                 </div>
               </Link>
             ))}
@@ -220,6 +250,17 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
+        </section>
+
+        <section className="mt-12">
+          <div className="mb-5 max-w-3xl">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-cyan-200">Decision Engine</p>
+            <h2 className="mt-2 text-3xl font-black leading-tight md:text-5xl">Need a diagnosis before choosing?</h2>
+            <p className="mt-3 text-sm font-semibold leading-6 text-white/58 md:text-base">
+              Answer a few questions and get the next action that fits your campaign, Atlas, level, experience, and current goal.
+            </p>
+          </div>
+          <NextActionEngine />
         </section>
       </div>
     </main>

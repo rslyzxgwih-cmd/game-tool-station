@@ -3,164 +3,199 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-type Gameplay = "Minions" | "Ranged" | "Melee" | "Spell";
-type Priority = "Easy to play" | "Fast leveling" | "Low budget" | "Strong endgame";
+type Gameplay = "Minions" | "Ranged" | "Melee" | "Spells";
+type Priority = "Easy to Play" | "Fast Leveling" | "Low Budget" | "Strong Endgame";
 
-const gameplayOptions: Gameplay[] = ["Minions", "Ranged", "Melee", "Spell"];
-const priorityOptions: Priority[] = ["Easy to play", "Fast leveling", "Low budget", "Strong endgame"];
+type Recommendation = {
+  href: string;
+  label: string;
+  reason: string;
+  buildClass: string;
+  playstyle: string;
+  difficulty: string;
+  budget: string;
+  bestFor: string;
+  mainStrength: string;
+};
 
-const recommendations: Record<Gameplay, Record<Priority, { href: string; label: string; reason: string }>> = {
+const gameplayOptions: Gameplay[] = ["Minions", "Ranged", "Melee", "Spells"];
+const priorityOptions: Priority[] = ["Easy to Play", "Fast Leveling", "Low Budget", "Strong Endgame"];
+
+const minionStarter: Recommendation = {
+  href: "/builds/poe2-beginner-minion-witch-build",
+  label: "POE2 Beginner Minion Witch Build",
+  reason: "Minions create space while you learn positioning, boss mechanics, and basic upgrades.",
+  buildClass: "Witch",
+  playstyle: "Safe summoner",
+  difficulty: "Easy",
+  budget: "Starter",
+  bestFor: "First character safety",
+  mainStrength: "Low pressure while learning fights",
+};
+
+const rangedStarter: Recommendation = {
+  href: "/builds/poe2-beginner-ranged-starter-build",
+  label: "POE2 Beginner Ranged Starter Build",
+  reason: "Ranged damage keeps the first character readable while you learn movement and upgrade timing.",
+  buildClass: "Ranger",
+  playstyle: "Simple ranged clear",
+  difficulty: "Easy",
+  budget: "Low",
+  bestFor: "Fast campaign pacing",
+  mainStrength: "Clear distance and simple skill roles",
+};
+
+const meleeStarter: Recommendation = {
+  href: "/builds/poe2-warrior-totem-slam-build",
+  label: "POE2 Warrior Totem Slam Build",
+  reason: "Totems add placed damage while Warrior keeps the defensive plan easier to understand.",
+  buildClass: "Warrior",
+  playstyle: "Totem assisted melee",
+  difficulty: "Medium",
+  budget: "Moderate",
+  bestFor: "Durable melee players",
+  mainStrength: "Forgiving defenses with support damage",
+};
+
+const spellStarter: Recommendation = {
+  href: "/builds/poe2-sorceress-fireball-build",
+  label: "POE2 Sorceress Fireball Build",
+  reason: "Fireball gives spell players one direct damage plan before adding extra support layers.",
+  buildClass: "Sorceress",
+  playstyle: "Direct spell caster",
+  difficulty: "Easy",
+  budget: "Low",
+  bestFor: "Simple spell leveling",
+  mainStrength: "Readable burst from range",
+};
+
+const druidStarter: Recommendation = {
+  href: "/builds/poe2-druid-hybrid-starter-build",
+  label: "POE2 Druid Hybrid Starter Build",
+  reason: "Druid is best when you want a flexible first route and accept a little more build uncertainty.",
+  buildClass: "Druid",
+  playstyle: "Hybrid melee spell",
+  difficulty: "Medium",
+  budget: "Moderate",
+  bestFor: "Experiment-minded beginners",
+  mainStrength: "Flexible class fantasy",
+};
+
+const recommendations: Record<Gameplay, Record<Priority, Recommendation>> = {
   Minions: {
-    "Easy to play": {
-      href: "/builds/poe2-beginner-minion-witch-build",
-      label: "Beginner Minion Witch Build",
-      reason: "Minions create space while you learn positioning, bosses, and basic upgrades.",
-    },
-    "Fast leveling": {
-      href: "/builds/poe2-witch-fire-minion-build",
-      label: "Witch Fire Minion Build",
-      reason: "Fire minions add better pack clear while keeping the safer summoner structure.",
-    },
-    "Low budget": {
-      href: "/builds/poe2-beginner-minion-witch-build",
-      label: "Beginner Minion Witch Build",
-      reason: "A simple minion route needs fewer early gear checks than weapon-heavy builds.",
-    },
-    "Strong endgame": {
-      href: "/builds/witch/minion",
-      label: "Witch Minion Builds",
-      reason: "Use the Witch minion hub when you want to compare safer summon routes before scaling further.",
-    },
+    "Easy to Play": minionStarter,
+    "Fast Leveling": minionStarter,
+    "Low Budget": minionStarter,
+    "Strong Endgame": minionStarter,
   },
   Ranged: {
-    "Easy to play": {
-      href: "/builds/poe2-ranger-lightning-arrow-starter-build",
-      label: "Ranger Lightning Arrow Starter Build",
-      reason: "Bow clear is readable and familiar if you want range without crossbow rhythm.",
-    },
-    "Fast leveling": {
-      href: "/builds/poe2-ranger-lightning-arrow-starter-build",
-      label: "Ranger Lightning Arrow Starter Build",
-      reason: "Lightning Arrow is the cleanest ranged choice when campaign speed matters.",
-    },
-    "Low budget": {
-      href: "/builds/poe2-ranger-lightning-arrow-starter-build",
-      label: "Ranger Lightning Arrow Starter Build",
-      reason: "A simple bow route keeps early upgrades focused on one weapon and one clear skill.",
-    },
-    "Strong endgame": {
-      href: "/builds/poe2-mercenary-crossbow-starter-build",
-      label: "Mercenary Crossbow Starter Build",
-      reason: "Crossbow skills separate clear, boss damage, and escape for players who want deeper ranged decisions.",
-    },
+    "Easy to Play": rangedStarter,
+    "Fast Leveling": rangedStarter,
+    "Low Budget": rangedStarter,
+    "Strong Endgame": rangedStarter,
   },
   Melee: {
-    "Easy to play": {
-      href: "/builds/poe2-warrior-slam-starter-build",
-      label: "Warrior Slam Starter Build",
-      reason: "Warrior is slower but easier to read if durability matters more than speed.",
-    },
-    "Fast leveling": {
-      href: "/builds/poe2-monk-leveling-build",
-      label: "Monk Leveling Build",
-      reason: "Monk is the faster melee choice if you enjoy movement and active timing.",
-    },
-    "Low budget": {
-      href: "/builds/poe2-warrior-slam-starter-build",
-      label: "Warrior Slam Starter Build",
-      reason: "A slam route keeps early melee priorities simple: weapon damage, defense, and pack control.",
-    },
-    "Strong endgame": {
-      href: "/builds/monk-crossbow-build",
-      label: "Monk Crossbow Build",
-      reason: "Use this if you want a more experimental melee route with range and payoff timing.",
-    },
+    "Easy to Play": meleeStarter,
+    "Fast Leveling": meleeStarter,
+    "Low Budget": meleeStarter,
+    "Strong Endgame": meleeStarter,
   },
-  Spell: {
-    "Easy to play": {
-      href: "/builds/poe2-sorceress-spark-starter-build",
-      label: "Sorceress Spark Starter Build",
-      reason: "Spark gives spell players a simple main skill before adding support layers.",
-    },
-    "Fast leveling": {
-      href: "/builds/poe2-sorceress-spark-starter-build",
-      label: "Sorceress Spark Starter Build",
-      reason: "Spark is the cleanest caster route when you want fast pack coverage.",
-    },
-    "Low budget": {
-      href: "/builds/poe2-sorceress-spark-starter-build",
-      label: "Sorceress Spark Starter Build",
-      reason: "A one-spell starter is easier to upgrade than a setup-heavy caster package.",
-    },
-    "Strong endgame": {
-      href: "/builds/poe2-sorceress-flame-wall-build",
-      label: "Sorceress Flame Wall Build",
-      reason: "Flame Wall works better when you are ready to add setup and support-skill timing.",
-    },
+  Spells: {
+    "Easy to Play": spellStarter,
+    "Fast Leveling": spellStarter,
+    "Low Budget": spellStarter,
+    "Strong Endgame": druidStarter,
   },
 };
 
+function OptionButton({
+  isSelected,
+  label,
+  onClick,
+}: {
+  isSelected: boolean;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`min-h-10 rounded-full px-3 py-2 text-left text-xs font-black transition focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 ${
+        isSelected
+          ? "bg-amber-200 text-zinc-950 shadow-[0_0_26px_rgba(245,158,11,0.24)]"
+          : "bg-white/[0.06] text-white/72 ring-1 ring-white/10 hover:bg-white/[0.1] hover:text-white"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
 export function BeginnerBuildDecision() {
   const [gameplay, setGameplay] = useState<Gameplay>("Minions");
-  const [priority, setPriority] = useState<Priority>("Easy to play");
+  const [priority, setPriority] = useState<Priority>("Easy to Play");
 
   const result = useMemo(() => recommendations[gameplay][priority], [gameplay, priority]);
 
   return (
-    <section className="mt-6 border-4 border-ink bg-white p-4 shadow-lg">
-      <p className="text-xs font-black uppercase text-moss">Beginner decision</p>
-      <h2 className="mt-1 text-2xl font-black leading-tight text-ink">Find Your Best POE2 Beginner Build</h2>
-      <p className="mt-2 text-sm leading-6 text-ink/72">
-        Answer a few questions and find a build that matches your playstyle.
-      </p>
+    <section className="grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
+      <div className="border border-white/10 bg-black/36 p-4 shadow-[0_28px_80px_rgba(0,0,0,0.28)] backdrop-blur">
+        <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-200">Beginner Build Finder</p>
+        <h2 className="mt-2 text-2xl font-black leading-tight text-white md:text-3xl">
+          Match your first build to the way you want to play.
+        </h2>
+        <p className="mt-2 text-sm font-semibold leading-6 text-white/58">
+          Pick the playstyle and priority that matter most. We’ll recommend a clear route for your first character.
+        </p>
 
-      <div className="mt-4 grid gap-4 md:grid-cols-2">
-        <div>
-          <h3 className="text-sm font-black text-ink">What type of gameplay do you enjoy?</h3>
-          <div className="mt-2 grid gap-2">
-            {gameplayOptions.map((option) => (
-              <button
-                key={option}
-                type="button"
-                onClick={() => setGameplay(option)}
-                className={`border px-3 py-2 text-left text-sm font-black ${
-                  gameplay === option ? "border-moss bg-moss text-white" : "border-line bg-paper text-ink/72 hover:border-moss"
-                }`}
-              >
-                {option}
-              </button>
-            ))}
+        <div className="mt-5 grid gap-4">
+          <div>
+            <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/54">Playstyle</h3>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {gameplayOptions.map((option) => (
+                <OptionButton key={option} label={option} isSelected={gameplay === option} onClick={() => setGameplay(option)} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div>
-          <h3 className="text-sm font-black text-ink">What matters most?</h3>
-          <div className="mt-2 grid gap-2">
-            {priorityOptions.map((option) => (
-              <button
-                key={option}
-                type="button"
-                onClick={() => setPriority(option)}
-                className={`border px-3 py-2 text-left text-sm font-black ${
-                  priority === option ? "border-moss bg-moss text-white" : "border-line bg-paper text-ink/72 hover:border-moss"
-                }`}
-              >
-                {option}
-              </button>
-            ))}
+          <div>
+            <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/54">Priority</h3>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {priorityOptions.map((option) => (
+                <OptionButton key={option} label={option} isSelected={priority === option} onClick={() => setPriority(option)} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      <article className="mt-4 border border-line bg-panel p-3">
-        <p className="text-xs font-black uppercase text-ember">Recommended build</p>
-        <h3 className="mt-1 text-xl font-black text-ink">{result.label}</h3>
-        <p className="mt-2 text-sm leading-6 text-ink/72">{result.reason}</p>
+      <article className="border border-emerald-200/18 bg-[linear-gradient(135deg,rgba(16,185,129,0.18),rgba(3,7,18,0.92))] p-4 shadow-[0_28px_80px_rgba(0,0,0,0.32)]">
+        <p className="text-xs font-black uppercase tracking-[0.2em] text-emerald-200">Recommended Beginner Build</p>
+        <h2 className="mt-2 text-2xl font-black leading-tight text-white md:text-3xl">{result.label}</h2>
+        <p className="mt-3 text-sm font-semibold leading-6 text-white/72">{result.reason}</p>
+
+        <dl className="mt-5 grid gap-2 text-sm sm:grid-cols-2">
+          {[
+            ["Class", result.buildClass],
+            ["Playstyle", result.playstyle],
+            ["Difficulty", result.difficulty],
+            ["Budget", result.budget],
+            ["Best For", result.bestFor],
+            ["Main Strength", result.mainStrength],
+          ].map(([label, value]) => (
+            <div key={label} className="bg-white/[0.055] px-3 py-2 ring-1 ring-white/10">
+              <dt className="text-[0.65rem] font-black uppercase tracking-[0.14em] text-white/44">{label}</dt>
+              <dd className="mt-1 font-bold text-white/82">{value}</dd>
+            </div>
+          ))}
+        </dl>
+
         <Link
           href={result.href}
-          className="mt-3 inline-flex border border-ink bg-ink px-4 py-2 text-xs font-black uppercase text-white hover:bg-moss"
+          className="mt-5 inline-flex min-h-11 items-center justify-center bg-amber-200 px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-zinc-950 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-200"
         >
-          Open recommended build
+          View Recommended Build
         </Link>
       </article>
     </section>

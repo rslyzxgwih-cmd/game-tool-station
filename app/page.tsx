@@ -130,28 +130,8 @@ const toolCards = [
 export default function HomePage() {
   return (
     <main className="relative isolate overflow-hidden bg-[#030304] text-white">
-      <nav className="relative z-20 mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
-        <Link href="/" className="text-sm font-black uppercase tracking-[0.24em] text-amber-100">
-          POE2 Starter Tools
-        </Link>
-        <div className="hidden items-center gap-5 text-xs font-black uppercase tracking-[0.16em] text-white/58 md:flex">
-          <Link href="/builds" className="hover:text-amber-100">
-            Builds
-          </Link>
-          <Link href="/skills" className="hover:text-amber-100">
-            Skills
-          </Link>
-          <Link href="/builds/beginner" className="hover:text-amber-100">
-            Starter Builds
-          </Link>
-          <Link href="/class-picker" className="hover:text-amber-100">
-            Class Picker
-          </Link>
-        </div>
-      </nav>
-
       <section
-        className="relative -mt-20 min-h-[820px] overflow-hidden pt-20"
+        className="relative min-h-[760px] overflow-hidden"
         style={{
           backgroundImage: `linear-gradient(90deg,rgba(3,3,4,0.72) 0%,rgba(3,3,4,0.38) 46%,rgba(3,3,4,0.08) 100%),linear-gradient(180deg,rgba(3,3,4,0) 0%,rgba(3,3,4,0.18) 62%,#030304 98%),url('${heroBackground}')`,
           backgroundPosition: "center center",

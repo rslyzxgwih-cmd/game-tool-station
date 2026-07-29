@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
+import { SkillDetailV2, type SkillDetailV2Content } from "@/components/SkillDetailV2";
 import { builds, getSkillBySlug, skills } from "@/lib/content";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -23,6 +24,110 @@ type SkillEnhancement = {
   alternatives: { href: string; label: string; note: string }[];
   levelingAdvice: string[];
   faqs: { question: string; answer: string }[];
+};
+
+const TIME_OF_NEED_SLUG = "time-of-need";
+const PROFANE_RITUAL_SLUG = "profane-ritual";
+
+const timeOfNeedV2Content: SkillDetailV2Content = {
+  eyebrow: "RECOVERY SUPPORT SKILL",
+  directAnswer:
+    "Use Time of Need when a build already has a workable damage plan but recovery gaps, ailments, or mistakes keep interrupting progress. It is a support choice for stability, not a replacement for damage or positioning.",
+  whatItDoes: [
+    "Time of Need adds recovery support to a character that needs more survival. Its job is to help the existing build recover from pressure rather than become the build's main identity.",
+    "The useful decision is whether recovery is the current bottleneck. If damage and clear already feel acceptable but deaths or recovery gaps slow the character, Time of Need has a clear role.",
+  ],
+  usefulWhen: [
+    "The main damage loop already works.",
+    "Recovery gaps are slowing campaign or map progress.",
+    "A beginner route needs a simpler survival layer.",
+    "Mistakes are ending otherwise manageable encounters.",
+  ],
+  mayNotFitWhen: [
+    "Low damage is the main problem.",
+    "The build already has enough recovery.",
+    "Another defensive or control skill solves the same problem more clearly.",
+  ],
+  practicalPrinciples: [
+    {
+      title: "Diagnose the Real Problem",
+      copy: "Add Time of Need because recovery is missing, not simply because a support slot is available.",
+    },
+    {
+      title: "Keep Damage Independent",
+      copy: "Maintain a clear main damage skill. Time of Need should support that route rather than distract from it.",
+    },
+    {
+      title: "Use It After the Core Loop",
+      copy: "Establish the character's primary combat plan first, then add recovery when survival is the limiting factor.",
+    },
+    {
+      title: "Recheck Its Value",
+      copy: "If later upgrades solve the recovery gap, compare whether another skill now serves the character better.",
+    },
+  ],
+  commonMistakes: [
+    "Expecting Time of Need to fix weak damage.",
+    "Using recovery as a substitute for positioning and defensive upgrades.",
+    "Adding the skill before the main combat loop is stable.",
+    "Keeping it when recovery is no longer the character's main problem.",
+  ],
+  relatedSkillSlugs: ["temporal-chains", "enfeeble", "devour"],
+  relatedBuildReason: (playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route when deciding where recovery support fits into a complete character.`,
+};
+
+const profaneRitualV2Content: SkillDetailV2Content = {
+  eyebrow: "CHAOS CORPSE SKILL",
+  directAnswer:
+    "Use Profane Ritual when a chaos or Witch route already has a clear main spell and a dependable reason to use corpses as a support layer. Avoid adding it early if corpse setup makes the character harder to understand.",
+  whatItDoes: [
+    "Profane Ritual uses corpses to support chaos spell pressure. It is best treated as a defined supporting job inside a corpse or chaos route rather than as a generic spell for every caster.",
+    "The skill fits when the character can create or access corpses consistently and the added layer solves a real combat need. Without that foundation, a direct spell is easier to evaluate.",
+  ],
+  usefulWhen: [
+    "A Witch or chaos route already has a stable main spell.",
+    "Corpse interaction is already part of the character plan.",
+    "The build wants an additional spell-pressure layer.",
+    "The player is comfortable managing more setup than a direct spell requires.",
+  ],
+  mayNotFitWhen: [
+    "You want a one-button beginner spell.",
+    "The build has no dependable corpse interaction.",
+    "You prefer direct weapon or spell damage without setup.",
+  ],
+  practicalPrinciples: [
+    {
+      title: "Establish the Main Spell First",
+      copy: "Keep one clear damage identity before Profane Ritual becomes part of the setup.",
+    },
+    {
+      title: "Give Corpses a Clear Job",
+      copy: "Use the corpse layer because it adds useful pressure, not because corpse skills happen to be available.",
+    },
+    {
+      title: "Keep the Setup Readable",
+      copy: "Add Profane Ritual only after the player understands where corpses come from and why they are being used.",
+    },
+    {
+      title: "Compare Simpler Alternatives",
+      copy: "If the corpse requirement creates more friction than value, compare a direct chaos spell or another corpse skill.",
+    },
+  ],
+  commonMistakes: [
+    "Adding Profane Ritual before the main spell route works.",
+    "Assuming every Witch or chaos build needs a corpse layer.",
+    "Treating setup-dependent pressure like a direct one-button spell.",
+    "Keeping multiple corpse tools without assigning each one a distinct role.",
+  ],
+  relatedSkillSlugs: ["detonate-dead", "essence-drain", "unearth"],
+  relatedBuildReason: (playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route to see whether corpse and chaos support belong in the wider build plan.`,
+};
+
+const skillDetailV2ContentBySlug: Partial<Record<string, SkillDetailV2Content>> = {
+  [TIME_OF_NEED_SLUG]: timeOfNeedV2Content,
+  [PROFANE_RITUAL_SLUG]: profaneRitualV2Content,
 };
 
 const skillEnhancements: Record<string, SkillEnhancement> = {
@@ -492,6 +597,28 @@ export default async function SkillDetailPage({ params }: PageProps) {
 
   if (!skill) {
     notFound();
+  }
+
+  const skillDetailV2Content = skillDetailV2ContentBySlug[skill.slug];
+
+  if (skillDetailV2Content) {
+    const relatedBuilds = buildsForSkill(skill);
+    const relatedSkills = skillDetailV2Content.relatedSkillSlugs
+      .map((relatedSlug) => getSkillBySlug(relatedSlug))
+      .filter((item): item is Skill => Boolean(item));
+
+    return (
+      <SkillDetailV2
+        skill={{
+          name: skill.name,
+          description: skill.description,
+          tags: skill.tags,
+        }}
+        content={skillDetailV2Content}
+        relatedBuilds={relatedBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
+        relatedSkills={relatedSkills.map(({ slug, name, description }) => ({ slug, name, description }))}
+      />
+    );
   }
 
   const usedInBuilds = buildsForSkill(skill);

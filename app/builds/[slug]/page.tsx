@@ -13,6 +13,10 @@ type Build = (typeof builds)[number];
 const MERCENARY_CROSSBOW_SLUG = "poe2-mercenary-crossbow-starter-build";
 const MERCENARY_RAPID_SHOT_SLUG = "poe2-mercenary-rapid-shot-build";
 const SORCERESS_SPARK_STARTER_SLUG = "poe2-sorceress-spark-starter-build";
+const BEGINNER_RANGED_STARTER_SLUG = "poe2-beginner-ranged-starter-build";
+const WARRIOR_TOTEM_SLAM_SLUG = "poe2-warrior-totem-slam-build";
+const DRUID_HYBRID_STARTER_SLUG = "poe2-druid-hybrid-starter-build";
+const BEGINNER_MINION_WITCH_SLUG = "poe2-beginner-minion-witch-build";
 const SORCERESS_RELATED_BUILD_SLUGS = [
   "poe2-sorceress-fireball-build",
   "poe2-sorceress-frostbolt-build",
@@ -254,6 +258,437 @@ const sorceressSparkV2Content: BuildDetailV2Content = {
   },
 };
 
+const guideCredibilityLine =
+  "Updated: July 2026 | Guide scope: build choice, skill roles, and progression priorities";
+
+const beginnerRangedV2Content: BuildDetailV2Content = {
+  eyebrow: "BEGINNER RANGED STARTER",
+  intro:
+    "A simple Ranger route for first characters that keeps Lightning Arrow at the center and uses mobility and area coverage as supporting jobs.",
+  badges: ["Ranger", "Ranged", "Easy", "First Character"],
+  heroImage: {
+    src: "/images/builds/lightning-arrow.webp",
+    alt: "Ranger firing a lightning arrow across a dark battlefield",
+  },
+  credibilityLine: guideCredibilityLine,
+  snapshotCaption: "Beginner ranged starter",
+  snapshot: [
+    { label: "Class", value: "Ranger" },
+    { label: "Playstyle", value: "Beginner ranged starter" },
+    { label: "Difficulty", value: "Easy" },
+    { label: "Main Skill", value: "Lightning Arrow" },
+    { label: "Best For", value: "Players who want a simple ranged first character." },
+    { label: "Main Strength", value: "Clear skill roles with room to reposition." },
+  ],
+  chooseThisBuild: [
+    "You want a ranged first character.",
+    "You prefer direct bow attacks over minion or melee management.",
+    "You want one main skill with mobility and area coverage beside it.",
+  ],
+  avoidThisBuild: [
+    "You want minions to handle most combat pressure.",
+    "You prefer heavy melee and close-range impact.",
+  ],
+  whyTitle: "Why This Route Works",
+  whyParagraphs: [
+    "Lightning Arrow gives the route one clear main skill. That keeps early decisions readable while the player learns positioning and ranged combat.",
+    "Escape Shot has a separate mobility role, while Rain of Arrows adds area coverage. Each skill answers a different need instead of competing for the same job.",
+    "The route stays beginner-friendly when upgrades support the main bow identity first and extra mechanics are added only when they solve a clear progression problem.",
+  ],
+  coreSkills: [
+    {
+      name: "Lightning Arrow",
+      href: "/skills/lightning-arrow",
+      role: "Main ranged skill",
+      copy: "Keep Lightning Arrow as the primary combat identity so the first character has one clear damage direction.",
+    },
+    {
+      name: "Escape Shot",
+      href: "/skills/escape-shot",
+      role: "Repositioning tool",
+      copy: "Use Escape Shot when distance and positioning matter more than adding another damage button.",
+    },
+    {
+      name: "Rain of Arrows",
+      href: "/skills/rain-of-arrows",
+      role: "Area coverage",
+      copy: "Use Rain of Arrows when wider pack coverage is the specific problem the main skill is not solving.",
+    },
+  ],
+  levelingTitle: "Safe Progression Route",
+  levelingRoute: [
+    {
+      title: "Establish Lightning Arrow",
+      copy: "Use Lightning Arrow as the main identity before adding unrelated damage packages.",
+    },
+    {
+      title: "Add Movement and Coverage",
+      copy: "Bring in Escape Shot for positioning and Rain of Arrows when wider coverage becomes useful.",
+    },
+    {
+      title: "Stabilize the Character",
+      copy: "Prioritize defensive upgrades whenever deaths interrupt campaign progress more than damage does.",
+    },
+    {
+      title: "Specialize After the Core Loop Works",
+      copy: "Compare other Ranger routes only after the main skill, movement, and coverage roles feel clear.",
+    },
+  ],
+  levelingNote:
+    "Keep the initial setup narrow: one main ranged skill, one movement answer, and one area-coverage option.",
+  upgradePriorities: [
+    "Keep the main bow skill functional.",
+    "Improve survivability when deaths slow progression.",
+    "Add movement and area coverage only for clear play problems.",
+    "Avoid splitting upgrades across several damage directions early.",
+  ],
+  strengths: [
+    "Clear ranged identity",
+    "Beginner-readable skill roles",
+    "Simple first-character direction",
+    "Mobility and area coverage options",
+  ],
+  tradeoffs: [
+    "The route expects the player to manage distance rather than rely on minions or heavy melee contact.",
+    "Players who dislike active repositioning may prefer a lower-pressure starter.",
+  ],
+  relatedBuildsTitle: "Related Builds",
+  relatedReasonFor: (_slug, playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route if you want a different first-character combat style.`,
+  ctaEyebrow: "Build Diagnosis",
+  ctaTitle: "Want to Compare Other Starter Routes?",
+  ctaCopy: "Return to the Build Finder to compare ranged, minion, melee, and hybrid starting directions.",
+  primaryCta: {
+    label: "Compare POE2 Builds",
+    href: "/builds#featured-builds",
+  },
+  secondaryCta: {
+    label: "Use the Build Finder",
+    href: "/builds",
+  },
+};
+
+const warriorTotemSlamV2Content: BuildDetailV2Content = {
+  eyebrow: "WARRIOR TOTEM BUILD",
+  intro:
+    "A Warrior route for players who want heavy melee supported by placed totem pressure, with each skill kept in a clear combat role.",
+  badges: ["Warrior", "Melee", "Medium", "Totem Assisted"],
+  heroImage: {
+    src: "/images/hero-bg.webp",
+    alt: "Ruined dark fantasy battlefield with distant fire and fog",
+  },
+  credibilityLine: guideCredibilityLine,
+  snapshotCaption: "Totem-assisted melee route",
+  snapshot: [
+    { label: "Class", value: "Warrior" },
+    { label: "Playstyle", value: "Totem assisted melee" },
+    { label: "Difficulty", value: "Medium" },
+    { label: "Main Skill", value: "Shockwave Totem" },
+    { label: "Best For", value: "Players who want placed damage beside heavy melee." },
+    { label: "Main Strength", value: "Separate placed pressure and direct melee roles." },
+  ],
+  chooseThisBuild: [
+    "You like heavy melee with an additional placed damage tool.",
+    "You are comfortable choosing when to place a totem and when to attack directly.",
+    "You want a Warrior route with distinct skill jobs.",
+  ],
+  avoidThisBuild: [
+    "You dislike placing support skills during combat.",
+    "You want every action to come from one direct melee button.",
+  ],
+  whyTitle: "Why This Route Works",
+  whyParagraphs: [
+    "Shockwave Totem gives the route a placed-damage identity while the Warrior continues using direct slam skills. The roles are complementary rather than interchangeable.",
+    "Earthquake and Rolling Slam keep the melee side of the route understandable. They let the player compare direct impact with the additional pressure created by the totem.",
+    "The route is easiest to manage when the player establishes one reliable melee action first, then uses the totem where placed pressure clearly helps.",
+  ],
+  coreSkills: [
+    {
+      name: "Shockwave Totem",
+      href: "/skills/shockwave-totem",
+      role: "Placed damage support",
+      copy: "Use Shockwave Totem to add pressure while you reposition or continue the direct melee loop.",
+    },
+    {
+      name: "Earthquake",
+      href: "/skills/earthquake",
+      role: "Heavy melee option",
+      copy: "Use Earthquake as a deliberate melee choice when the route needs direct heavy impact.",
+    },
+    {
+      name: "Rolling Slam",
+      href: "/skills/rolling-slam",
+      role: "Active melee pressure",
+      copy: "Use Rolling Slam as another direct Warrior action without asking the totem to solve every combat job.",
+    },
+  ],
+  levelingTitle: "Safe Progression Route",
+  levelingRoute: [
+    {
+      title: "Establish Direct Melee",
+      copy: "Start with a clear melee action so the route works before the placed-damage layer is required.",
+    },
+    {
+      title: "Introduce the Totem Role",
+      copy: "Add Shockwave Totem when extra placed pressure helps, rather than placing it without a specific purpose.",
+    },
+    {
+      title: "Keep Both Roles Readable",
+      copy: "Use the totem for support and the slam skills for direct action instead of adding more overlapping mechanics.",
+    },
+    {
+      title: "Stabilize Progression",
+      copy: "Improve defenses whenever repeated deaths make the two-part combat loop difficult to maintain.",
+    },
+  ],
+  levelingNote:
+    "The route is clearest when direct melee remains functional and the totem adds a separate, deliberate layer.",
+  upgradePriorities: [
+    "Keep the direct melee route usable.",
+    "Add the totem when placed pressure solves a clear need.",
+    "Improve defenses when close-range play interrupts progress.",
+    "Avoid adding extra mechanics before the melee and totem roles are stable.",
+  ],
+  strengths: [
+    "Distinct melee and totem roles",
+    "Clear Warrior identity",
+    "Placed pressure beside direct attacks",
+    "Progression choices with visible purpose",
+  ],
+  tradeoffs: [
+    "The route asks you to manage both placement and direct melee timing.",
+    "Players who want a single-action combat loop may prefer a more direct Warrior route.",
+  ],
+  relatedBuildsTitle: "Related Builds",
+  relatedReasonFor: (_slug, playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route if you want a different balance of direct melee and supporting tools.`,
+  ctaEyebrow: "Build Diagnosis",
+  ctaTitle: "Not Sure a Totem Route Fits Your Warrior?",
+  ctaCopy: "Compare other POE2 builds or return to the Build Finder before choosing a melee direction.",
+  primaryCta: {
+    label: "Compare POE2 Builds",
+    href: "/builds#featured-builds",
+  },
+  secondaryCta: {
+    label: "Use the Build Finder",
+    href: "/builds",
+  },
+};
+
+const druidHybridV2Content: BuildDetailV2Content = {
+  eyebrow: "DRUID HYBRID STARTER",
+  intro:
+    "A flexible Druid starting route for players who want a hybrid melee-and-spell identity and can keep one side of the build primary while learning.",
+  badges: ["Druid", "Hybrid", "Medium", "Flexible Route"],
+  heroImage: {
+    src: "/images/hero-bg.webp",
+    alt: "Ancient ruined landscape with mist and blue fire",
+  },
+  credibilityLine: guideCredibilityLine,
+  snapshotCaption: "Hybrid melee and spell starter",
+  snapshot: [
+    { label: "Class", value: "Druid" },
+    { label: "Playstyle", value: "Hybrid melee spell" },
+    { label: "Difficulty", value: "Medium" },
+    { label: "Core Direction", value: "Choose melee-first or spell-first" },
+    { label: "Best For", value: "Hybrid players, experimenters, and returning players." },
+    { label: "Main Strength", value: "Flexible skill roles once one primary direction is chosen." },
+  ],
+  chooseThisBuild: [
+    "You enjoy combining melee and spell tools.",
+    "You can choose one primary direction before expanding the setup.",
+    "You value flexibility more than a one-button starter route.",
+  ],
+  avoidThisBuild: [
+    "You want the most direct and documented one-skill route.",
+    "You dislike making choices between melee-first and spell-first progression.",
+  ],
+  whyTitle: "Why This Route Works",
+  whyParagraphs: [
+    "The Druid hybrid route offers both melee and spell tools, but it stays readable only when one direction leads. Choosing melee-first or spell-first gives early upgrades a clear purpose.",
+    "Frostbolt, Earthquake, and Orb of Storms represent different jobs rather than a demand to scale everything equally. Use the skills that support the chosen primary loop.",
+    "The route suits players who want experimentation without immediate complexity. Delay the wider hybrid decisions until the first combat loop feels stable.",
+  ],
+  coreSkills: [
+    {
+      name: "Frostbolt",
+      href: "/skills/frostbolt",
+      role: "Ranged spell option",
+      copy: "Use Frostbolt when the spell side is the primary direction or when ranged pressure solves a clear gap.",
+    },
+    {
+      name: "Earthquake",
+      href: "/skills/earthquake",
+      role: "Direct melee option",
+      copy: "Use Earthquake when heavy melee is the primary route rather than splitting attention evenly from the start.",
+    },
+    {
+      name: "Orb of Storms",
+      href: "/skills/orb-of-storms",
+      role: "Additional spell tool",
+      copy: "Add Orb of Storms when it has a defined supporting role beside the chosen main direction.",
+    },
+  ],
+  levelingTitle: "Safe Progression Route",
+  levelingRoute: [
+    {
+      title: "Choose the Primary Side",
+      copy: "Decide whether the route begins melee-first or spell-first so early upgrades are not split without purpose.",
+    },
+    {
+      title: "Build One Stable Loop",
+      copy: "Keep the chosen main skill direction functional before adding the other side of the hybrid setup.",
+    },
+    {
+      title: "Add a Supporting Role",
+      copy: "Introduce another skill only when it solves range, pressure, or control that the main loop lacks.",
+    },
+    {
+      title: "Expand Carefully",
+      copy: "Compare broader hybrid choices after survival and the primary combat loop are stable.",
+    },
+  ],
+  levelingNote:
+    "A hybrid route is easier to learn when one side leads and every additional skill has a specific supporting job.",
+  upgradePriorities: [
+    "Choose melee-first or spell-first before splitting upgrades.",
+    "Keep the primary combat loop functional.",
+    "Improve survivability when experimentation interrupts progression.",
+    "Add the second side of the hybrid route only for a defined role.",
+  ],
+  strengths: [
+    "Flexible melee and spell identity",
+    "Room for experimentation",
+    "Clear choice between two starting directions",
+    "Supporting skills with distinct roles",
+  ],
+  tradeoffs: [
+    "The route requires more early decision-making than a pure melee or pure spell starter.",
+    "Splitting upgrades too soon can make the character direction harder to understand.",
+  ],
+  relatedBuildsTitle: "Related Builds",
+  relatedReasonFor: (_slug, playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route if you want a more focused alternative to hybrid progression.`,
+  ctaEyebrow: "Build Diagnosis",
+  ctaTitle: "Want a More Focused Starting Route?",
+  ctaCopy: "Use the Build Finder to compare hybrid, melee, ranged, spell, and minion directions.",
+  primaryCta: {
+    label: "Compare POE2 Builds",
+    href: "/builds#featured-builds",
+  },
+  secondaryCta: {
+    label: "Use the Build Finder",
+    href: "/builds",
+  },
+};
+
+const beginnerMinionWitchV2Content: BuildDetailV2Content = {
+  eyebrow: "BEGINNER MINION WITCH",
+  intro:
+    "A low-pressure Witch starter for players who want summons to create space while they learn positioning, survival, and basic progression decisions.",
+  badges: ["Witch", "Summoner", "Easy", "First Character"],
+  heroImage: {
+    src: "/images/builds/invoker.webp",
+    alt: "Witch caster surrounded by blue magic in a dark fantasy scene",
+  },
+  credibilityLine: guideCredibilityLine,
+  snapshotCaption: "Low-pressure summoner starter",
+  snapshot: [
+    { label: "Class", value: "Witch" },
+    { label: "Playstyle", value: "Safe summoner" },
+    { label: "Difficulty", value: "Easy" },
+    { label: "Core Skills", value: "Skeletal Warrior, Skeletal Sniper, Raise Spectre" },
+    { label: "Best For", value: "First characters, boss learning, and players who dislike melee risk." },
+    { label: "Main Strength", value: "Minions create space while the player learns." },
+  ],
+  chooseThisBuild: [
+    "You want summons to create space during combat.",
+    "You prefer a lower-pressure first character.",
+    "You want time to learn positioning and survival decisions.",
+  ],
+  avoidThisBuild: [
+    "You want direct weapon damage to be the main identity.",
+    "You dislike managing minions and their supporting roles.",
+  ],
+  whyTitle: "Why This Route Works",
+  whyParagraphs: [
+    "The minion route reduces the need for the player to handle every source of pressure directly. That creates more room to learn positioning and progression.",
+    "Skeletal Warrior, Skeletal Sniper, and Raise Spectre give the build a clear summoner identity. Keep minion survival and count useful before chasing extra complexity.",
+    "The route remains beginner-friendly when the player adds only one direct support action for tougher enemies and upgrades personal defenses whenever deaths interrupt progress.",
+  ],
+  coreSkills: [
+    {
+      name: "Skeletal Warrior",
+      href: "/skills/skeletal-warrior",
+      role: "Front-line minion",
+      copy: "Use Skeletal Warrior as part of the front line that creates space between the Witch and nearby pressure.",
+    },
+    {
+      name: "Skeletal Sniper",
+      href: "/skills/skeletal-sniper",
+      role: "Ranged minion pressure",
+      copy: "Use Skeletal Sniper to add a ranged minion role without changing the route into direct weapon combat.",
+    },
+    {
+      name: "Raise Spectre",
+      href: "/skills/raise-spectre",
+      role: "Summoner support option",
+      copy: "Use Raise Spectre as another minion option once the basic summoner loop and personal positioning feel stable.",
+    },
+  ],
+  levelingTitle: "Safe Progression Route",
+  levelingRoute: [
+    {
+      title: "Establish the Minion Front Line",
+      copy: "Prioritize a clear summoner identity before adding unrelated direct-damage mechanics.",
+    },
+    {
+      title: "Support Tougher Encounters",
+      copy: "Keep one curse or direct support action available when rare enemies need more focused attention.",
+    },
+    {
+      title: "Protect Progression",
+      copy: "Upgrade personal defenses whenever deaths slow the campaign more than another minion damage choice would help.",
+    },
+    {
+      title: "Expand the Minion Setup Carefully",
+      copy: "Add another minion role only after the basic front line and positioning decisions feel manageable.",
+    },
+  ],
+  levelingNote:
+    "Keep the first summoner route readable: establish minions, protect the Witch, then add supporting decisions gradually.",
+  upgradePriorities: [
+    "Keep minion count and survival useful.",
+    "Improve personal defenses when deaths interrupt progression.",
+    "Maintain one focused support action for tougher enemies.",
+    "Avoid adding unrelated damage mechanics before the summoner loop is stable.",
+  ],
+  strengths: [
+    "Low-pressure first-character direction",
+    "Minions create combat space",
+    "Clear summoner identity",
+    "Room to learn positioning and survival",
+  ],
+  tradeoffs: [
+    "The route includes minion management instead of direct weapon control.",
+    "Players who want every hit to come from their own character may prefer a ranged or melee starter.",
+  ],
+  relatedBuildsTitle: "Related Builds",
+  relatedReasonFor: (_slug, playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route if you want a different balance of safety, direct control, and progression complexity.`,
+  ctaEyebrow: "Build Diagnosis",
+  ctaTitle: "Want to Compare Other Beginner Builds?",
+  ctaCopy: "Return to the Build Finder to compare minion, ranged, melee, spell, and hybrid starter routes.",
+  primaryCta: {
+    label: "Compare Beginner Builds",
+    href: "/builds/beginner",
+  },
+  secondaryCta: {
+    label: "Use the Build Finder",
+    href: "/builds",
+  },
+};
+
 export function generateStaticParams() {
   return builds.map((build) => ({ slug: build.slug }));
 }
@@ -308,6 +743,12 @@ export default async function BuildDetailPage({ params }: PageProps) {
   const isMercenaryCrossbowWinner = build.slug === MERCENARY_CROSSBOW_SLUG;
   const isMercenaryRapidShot = build.slug === MERCENARY_RAPID_SHOT_SLUG;
   const isSorceressSparkStarter = build.slug === SORCERESS_SPARK_STARTER_SLUG;
+  const v2ContentBySlug: Partial<Record<string, BuildDetailV2Content>> = {
+    [BEGINNER_RANGED_STARTER_SLUG]: beginnerRangedV2Content,
+    [WARRIOR_TOTEM_SLAM_SLUG]: warriorTotemSlamV2Content,
+    [DRUID_HYBRID_STARTER_SLUG]: druidHybridV2Content,
+    [BEGINNER_MINION_WITCH_SLUG]: beginnerMinionWitchV2Content,
+  };
 
   if (isMercenaryRapidShot) {
     return (
@@ -338,6 +779,23 @@ export default async function BuildDetailPage({ params }: PageProps) {
         }}
         relatedBuilds={relatedSorceressBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
         content={sorceressSparkV2Content}
+      />
+    );
+  }
+
+  const v2Content = v2ContentBySlug[build.slug];
+
+  if (v2Content) {
+    return (
+      <BuildDetailV2
+        build={{
+          title: build.title,
+          class: build.class,
+          playstyle: build.playstyle,
+          difficulty: build.difficulty,
+        }}
+        relatedBuilds={relatedBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
+        content={v2Content}
       />
     );
   }

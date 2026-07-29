@@ -29,6 +29,7 @@ export type BuildDetailV2Content = {
     src: string;
     alt: string;
   };
+  credibilityLine?: string;
   snapshotCaption?: string;
   snapshot: Array<{ label: string; value: string }>;
   chooseThisBuild: string[];
@@ -225,6 +226,9 @@ export function BuildDetailV2({ build, relatedBuilds, content = mercenaryRapidSh
             <p className="text-xs font-black uppercase tracking-[0.22em] text-amber-200">{content.eyebrow}</p>
             <h1 className="mt-3 max-w-3xl text-3xl font-black leading-tight text-white md:text-5xl">{build.title}</h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-zinc-300">{content.intro}</p>
+            {content.credibilityLine ? (
+              <p className="mt-3 text-xs leading-5 text-zinc-400">{content.credibilityLine}</p>
+            ) : null}
             <div className="mt-5 flex flex-wrap gap-2">
               {content.badges.map((badge) => (
                 <span

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BuildDetailV2 } from "@/components/BuildDetailV2";
+import { BuildDetailV2, type BuildDetailV2Content } from "@/components/BuildDetailV2";
 import { builds, getBuildBySlug, getSkillBySlug } from "@/lib/content";
 
 type PageProps = {
@@ -12,6 +12,12 @@ type Build = (typeof builds)[number];
 
 const MERCENARY_CROSSBOW_SLUG = "poe2-mercenary-crossbow-starter-build";
 const MERCENARY_RAPID_SHOT_SLUG = "poe2-mercenary-rapid-shot-build";
+const SORCERESS_SPARK_STARTER_SLUG = "poe2-sorceress-spark-starter-build";
+const SORCERESS_RELATED_BUILD_SLUGS = [
+  "poe2-sorceress-fireball-build",
+  "poe2-sorceress-frostbolt-build",
+  "poe2-sorceress-arc-build",
+];
 
 const mercenaryCrossbowSections = {
   snapshot: [
@@ -138,6 +144,116 @@ const mercenaryCrossbowSections = {
   ],
 };
 
+const sorceressSparkV2Content: BuildDetailV2Content = {
+  eyebrow: "SORCERESS SPELL STARTER",
+  intro:
+    "A focused ranged spell route for players who want Spark as the main identity and prefer adding supporting tools gradually.",
+  badges: ["Sorceress", "Ranged Spell", "Beginner Friendly", "Focused Progression"],
+  heroImage: {
+    src: "/images/builds/invoker.webp",
+    alt: "Sorceress caster channeling blue magic in a dark fantasy scene",
+  },
+  snapshotCaption: "Ranged spell starter",
+  snapshot: [
+    { label: "Class", value: "Sorceress" },
+    { label: "Playstyle", value: "Lightning spell clear" },
+    { label: "Difficulty", value: "Easy" },
+    { label: "Main Skill", value: "Spark" },
+    { label: "Best For", value: "Players who prefer ranged spell combat and focused progression." },
+    { label: "Main Strength", value: "One recognisable main skill with gradual supporting-tool choices." },
+  ],
+  chooseThisBuild: [
+    "You prefer ranged spell combat.",
+    "You want Spark to remain the clear main skill.",
+    "You prefer adding supporting tools gradually.",
+    "You want a focused caster starting direction.",
+  ],
+  avoidThisBuild: [
+    "You prefer melee or weapon-first combat.",
+    "You dislike projectile-based spell play.",
+    "You want a physical attack route.",
+    "You prefer a slower and more deliberate combat rhythm.",
+  ],
+  whyTitle: "Why This Route Works",
+  whyParagraphs: [
+    "Spark defines the route's ranged spell identity. That gives the character a clear starting point instead of asking the player to learn several unrelated mechanics at once.",
+    "Orb of Storms and Flame Wall can be introduced as separate supporting tools after Spark already feels comfortable. They do not need to replace the main identity of the route.",
+    "The route stays readable because it avoids splitting attention across too many mechanics early. Add another tool only when it solves a clear play problem.",
+  ],
+  coreSkills: [
+    {
+      name: "Spark",
+      href: "/skills/spark",
+      role: "Main ranged spell identity",
+      copy: "Use Spark as the main identity of this Sorceress starter route. Keep the early plan focused around this spell before adding extra tools.",
+    },
+    {
+      name: "Orb of Storms",
+      href: "/skills/orb-of-storms",
+      role: "Additional spell tool",
+      copy: "Compare Orb of Storms when you want another spell option beside Spark. Treat it as an added tool, not a replacement for the route.",
+    },
+    {
+      name: "Flame Wall",
+      href: "/skills/flame-wall",
+      role: "Optional supporting spell tool",
+      copy: "Compare Flame Wall as an optional caster tool if you want to explore a different supporting spell choice while keeping the route focused.",
+    },
+  ],
+  levelingTitle: "Safe Progression Route",
+  levelingRoute: [
+    {
+      title: "Establish Spark",
+      copy: "Start by keeping Spark as the main spell identity. Make the route easy to read before adding more buttons.",
+    },
+    {
+      title: "Add Supporting Tools",
+      copy: "Introduce Orb of Storms, Flame Wall, or another spell tool only when it solves a clear problem in how the route feels.",
+    },
+    {
+      title: "Stabilise the Route",
+      copy: "Improve survivability when deaths interrupt progression. A simple spell route still needs enough stability to keep moving forward.",
+    },
+    {
+      title: "Consider Specialisation Later",
+      copy: "Compare other Sorceress spell routes only after you understand whether Spark still matches the playstyle you want.",
+    },
+  ],
+  levelingNote:
+    "Use this as a conservative starting direction, then specialise later when the route feels stable.",
+  upgradePriorities: [
+    "Keep the main spell route functional.",
+    "Improve survivability when deaths interrupt progression.",
+    "Add secondary tools only when they solve a clear problem.",
+    "Avoid splitting resources across too many mechanics early.",
+  ],
+  strengths: [
+    "Clear ranged spell identity",
+    "One recognisable main skill",
+    "Gradual supporting-tool progression",
+    "Beginner-readable decisions",
+  ],
+  tradeoffs: [
+    "This route is not ideal if you prefer melee or weapon-first combat.",
+    "Projectile-based spell play may not suit players who prefer direct physical attacks.",
+    "The focused caster direction can feel too narrow if you want to experiment immediately.",
+  ],
+  relatedBuildsTitle: "Related Builds",
+  relatedReasonFor: (_slug, playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} Sorceress route if Spark is not the spell pacing you want.`,
+  ctaEyebrow: "Build Diagnosis",
+  ctaTitle: "Not Sure Spark Is the Right Spell Route?",
+  ctaCopy: "Compare other POE2 builds or use the Build Finder before committing to your first caster route.",
+  primaryCta: {
+    label: "Compare POE2 Builds",
+    href: "/builds#featured-builds",
+  },
+  secondaryCta: {
+    label: "Use the Build Finder",
+    href: "/builds",
+  },
+};
+
 export function generateStaticParams() {
   return builds.map((build) => ({ slug: build.slug }));
 }
@@ -191,6 +307,7 @@ export default async function BuildDetailPage({ params }: PageProps) {
   const relatedBuilds = relatedBuildsFor(build);
   const isMercenaryCrossbowWinner = build.slug === MERCENARY_CROSSBOW_SLUG;
   const isMercenaryRapidShot = build.slug === MERCENARY_RAPID_SHOT_SLUG;
+  const isSorceressSparkStarter = build.slug === SORCERESS_SPARK_STARTER_SLUG;
 
   if (isMercenaryRapidShot) {
     return (
@@ -202,6 +319,25 @@ export default async function BuildDetailPage({ params }: PageProps) {
           difficulty: build.difficulty,
         }}
         relatedBuilds={relatedBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
+      />
+    );
+  }
+
+  if (isSorceressSparkStarter) {
+    const relatedSorceressBuilds = SORCERESS_RELATED_BUILD_SLUGS.map((relatedSlug) => getBuildBySlug(relatedSlug)).filter(
+      (item): item is Build => Boolean(item),
+    );
+
+    return (
+      <BuildDetailV2
+        build={{
+          title: build.title,
+          class: build.class,
+          playstyle: build.playstyle,
+          difficulty: build.difficulty,
+        }}
+        relatedBuilds={relatedSorceressBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
+        content={sorceressSparkV2Content}
       />
     );
   }

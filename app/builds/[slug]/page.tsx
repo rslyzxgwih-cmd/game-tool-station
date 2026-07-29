@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BuildDetailV2 } from "@/components/BuildDetailV2";
 import { builds, getBuildBySlug, getSkillBySlug } from "@/lib/content";
 
 type PageProps = {
@@ -10,6 +11,7 @@ type PageProps = {
 type Build = (typeof builds)[number];
 
 const MERCENARY_CROSSBOW_SLUG = "poe2-mercenary-crossbow-starter-build";
+const MERCENARY_RAPID_SHOT_SLUG = "poe2-mercenary-rapid-shot-build";
 
 const mercenaryCrossbowSections = {
   snapshot: [
@@ -188,6 +190,21 @@ export default async function BuildDetailPage({ params }: PageProps) {
   const reasons = build.goodFor.slice(0, 3);
   const relatedBuilds = relatedBuildsFor(build);
   const isMercenaryCrossbowWinner = build.slug === MERCENARY_CROSSBOW_SLUG;
+  const isMercenaryRapidShot = build.slug === MERCENARY_RAPID_SHOT_SLUG;
+
+  if (isMercenaryRapidShot) {
+    return (
+      <BuildDetailV2
+        build={{
+          title: build.title,
+          class: build.class,
+          playstyle: build.playstyle,
+          difficulty: build.difficulty,
+        }}
+        relatedBuilds={relatedBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
+      />
+    );
+  }
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-8">

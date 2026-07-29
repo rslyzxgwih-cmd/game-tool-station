@@ -28,6 +28,10 @@ type SkillEnhancement = {
 
 const TIME_OF_NEED_SLUG = "time-of-need";
 const PROFANE_RITUAL_SLUG = "profane-ritual";
+const GLACIAL_LANCE_SLUG = "glacial-lance";
+const STORMCALLER_ARROW_SLUG = "stormcaller-arrow";
+const RAIN_OF_ARROWS_SLUG = "rain-of-arrows";
+const SHIELD_CHARGE_SLUG = "shield-charge";
 
 const timeOfNeedV2Content: SkillDetailV2Content = {
   eyebrow: "RECOVERY SUPPORT SKILL",
@@ -125,9 +129,205 @@ const profaneRitualV2Content: SkillDetailV2Content = {
     `Compare this ${playstyle.toLowerCase()} route to see whether corpse and chaos support belong in the wider build plan.`,
 };
 
+const glacialLanceV2Content: SkillDetailV2Content = {
+  eyebrow: "COLD SPEAR SKILL",
+  directAnswer:
+    "Use Glacial Lance when a spear route wants cold ranged pressure and safer spacing as part of its main plan. It fits players who want to engage from range, but it may not suit a build committed to close melee or a different damage direction.",
+  whatItDoes: [
+    "Glacial Lance adds cold spear damage from range. Its decision value is giving a spear character another way to apply pressure without staying close to every threat.",
+    "The skill belongs in a route that already values ranged, spear, and cold roles. If the wider build is not supporting those priorities, adding Glacial Lance can make the character direction less clear.",
+  ],
+  usefulWhen: [
+    "A spear build wants safer spacing.",
+    "Cold ranged pressure matches the character's main direction.",
+    "The current skill package needs a ranged spear option.",
+    "The player prefers controlling engagement distance over constant close contact.",
+  ],
+  mayNotFitWhen: [
+    "The route is committed to close melee pressure.",
+    "The build is already centered on another damage direction.",
+    "A simpler main skill already handles ranged coverage.",
+  ],
+  practicalPrinciples: [
+    {
+      title: "Keep the Spear Identity Clear",
+      copy: "Use Glacial Lance because ranged spear pressure is part of the route, not as an unrelated extra skill.",
+    },
+    {
+      title: "Use Range Deliberately",
+      copy: "Let the skill create safer spacing when closing distance would add unnecessary pressure.",
+    },
+    {
+      title: "Choose One Main Direction",
+      copy: "Avoid splitting early progression between several unrelated damage plans.",
+    },
+    {
+      title: "Compare Nearby Spear Skills",
+      copy: "If cold pressure is not the right fit, compare another ranged or area-focused spear option.",
+    },
+  ],
+  commonMistakes: [
+    "Adding Glacial Lance to a build that does not support its ranged spear role.",
+    "Treating safer spacing as a reason to ignore defenses.",
+    "Using too many spear skills without assigning each one a distinct job.",
+    "Keeping the skill when another option already handles ranged coverage more clearly.",
+  ],
+  relatedSkillSlugs: ["lightning-spear", "explosive-spear", "frostbolt"],
+  relatedBuildReason: (playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route when deciding whether cold ranged spear pressure fits the wider character plan.`,
+};
+
+const stormcallerArrowV2Content: SkillDetailV2Content = {
+  eyebrow: "LIGHTNING BOW SKILL",
+  directAnswer:
+    "Use Stormcaller Arrow when a bow build wants delayed lightning pressure as a deliberate part of its combat plan. It fits players who are comfortable setting up an effect before its payoff, but it may not suit someone who wants every arrow to feel immediate.",
+  whatItDoes: [
+    "Stormcaller Arrow builds a bow setup around delayed lightning hits. Its role is not simply another bow attack; it asks the player to value setup and later payoff.",
+    "The skill makes the most sense when ranged, bow, and lightning priorities already point in the same direction. It should solve a clear need inside that route rather than compete with several other bow skills for the same job.",
+  ],
+  usefulWhen: [
+    "A bow route is already committed to lightning.",
+    "The player is comfortable with delayed payoff.",
+    "The skill package needs a setup-oriented bow option.",
+    "The wider character plan supports ranged lightning pressure.",
+  ],
+  mayNotFitWhen: [
+    "You want immediate impact from every attack.",
+    "The build is not supporting lightning or bow priorities.",
+    "Another bow skill already covers the same combat role more simply.",
+  ],
+  practicalPrinciples: [
+    {
+      title: "Respect the Delayed Payoff",
+      copy: "Choose Stormcaller Arrow because its setup style fits the player, not because every bow route needs it.",
+    },
+    {
+      title: "Keep Lightning as the Direction",
+      copy: "Use the skill inside a clear lightning bow plan instead of splitting into unrelated damage roles.",
+    },
+    {
+      title: "Assign It One Job",
+      copy: "Decide whether the skill is the main identity or a supporting setup before adding more bow buttons.",
+    },
+    {
+      title: "Compare Immediate Alternatives",
+      copy: "If delayed pressure feels awkward, compare a more direct bow skill that better matches the desired pacing.",
+    },
+  ],
+  commonMistakes: [
+    "Expecting delayed lightning pressure to feel like an immediate bow hit.",
+    "Adding the skill without a clear lightning direction.",
+    "Using several bow skills for the same job.",
+    "Keeping a setup style that does not match the player's preferred pacing.",
+  ],
+  relatedSkillSlugs: ["lightning-arrow", "lightning-rod", "rain-of-arrows"],
+  relatedBuildReason: (playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route to decide whether delayed lightning bow pressure belongs in the full build.`,
+};
+
+const rainOfArrowsV2Content: SkillDetailV2Content = {
+  eyebrow: "BOW AREA SKILL",
+  directAnswer:
+    "Use Rain of Arrows when a bow build needs wider area coverage because single arrows are no longer covering enough space. It is a clear pack-coverage choice, not automatically the right answer when the main problem is elsewhere.",
+  whatItDoes: [
+    "Rain of Arrows adds area coverage to a bow build. Its practical job is helping a ranged character pressure a wider section of the fight than a single-arrow skill can cover.",
+    "The skill is most useful when pack coverage is the real bottleneck. If the build already handles groups comfortably, another bow skill may provide a more distinct role.",
+  ],
+  usefulWhen: [
+    "Single-arrow coverage is no longer enough.",
+    "A bow route needs a clear area-pressure option.",
+    "The player wants wider pack coverage from range.",
+    "The rest of the build already supports ranged bow play.",
+  ],
+  mayNotFitWhen: [
+    "The current main skill already covers packs well.",
+    "The build needs a different role more urgently than area coverage.",
+    "The character is not committed to a bow direction.",
+  ],
+  practicalPrinciples: [
+    {
+      title: "Use It for Coverage",
+      copy: "Give Rain of Arrows the specific job of handling wider groups rather than expecting it to solve every encounter.",
+    },
+    {
+      title: "Check the Real Bottleneck",
+      copy: "Add the skill when pack coverage is weak, not simply because another bow skill is available.",
+    },
+    {
+      title: "Keep the Skill Package Small",
+      copy: "Maintain one clear main plan and avoid filling the bar with overlapping area options.",
+    },
+    {
+      title: "Reassess as Coverage Improves",
+      copy: "If the main bow skill later covers groups well enough, compare whether Rain of Arrows still has a distinct job.",
+    },
+  ],
+  commonMistakes: [
+    "Adding Rain of Arrows when pack coverage is already solved.",
+    "Expecting an area skill to fix an unrelated character problem.",
+    "Using several bow skills with no clear division of roles.",
+    "Ignoring positioning because the skill reaches a wider area.",
+  ],
+  relatedSkillSlugs: ["lightning-arrow", "stormcaller-arrow", "snipe"],
+  relatedBuildReason: (playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route to see where wider bow coverage belongs in a complete build.`,
+};
+
+const shieldChargeV2Content: SkillDetailV2Content = {
+  eyebrow: "SHIELD MOBILITY SKILL",
+  directAnswer:
+    "Use Shield Charge when a melee shield build wants movement and impact to share one clear role. It fits players who actively reposition with a shield, but it may not suit a character that does not treat shield use as part of its main identity.",
+  whatItDoes: [
+    "Shield Charge turns shield use into movement and impact. Its decision value is combining engagement or repositioning with the character's existing shield plan.",
+    "The skill belongs in a melee route that already values shields and mobility. Without that connection, a simpler movement option may keep the build easier to understand.",
+  ],
+  usefulWhen: [
+    "A melee route already uses a shield.",
+    "The player wants movement tied to the shield identity.",
+    "Repositioning is a regular part of the combat plan.",
+    "The skill has a distinct mobility job beside direct attacks.",
+  ],
+  mayNotFitWhen: [
+    "The build is not committed to shield use.",
+    "You want movement separated from melee impact.",
+    "Another mobility skill already solves repositioning more clearly.",
+  ],
+  practicalPrinciples: [
+    {
+      title: "Use It as Mobility First",
+      copy: "Give Shield Charge a clear movement job before expecting it to replace the build's main attack.",
+    },
+    {
+      title: "Keep the Shield Relevant",
+      copy: "Choose the skill when shield use is already part of the character direction.",
+    },
+    {
+      title: "Move with a Purpose",
+      copy: "Use the skill to engage or reposition rather than adding movement that does not improve the combat plan.",
+    },
+    {
+      title: "Separate Skill Roles",
+      copy: "Let the main melee skill handle its own job while Shield Charge handles movement and impact.",
+    },
+  ],
+  commonMistakes: [
+    "Adding Shield Charge to a route that does not otherwise value shields.",
+    "Treating a mobility skill as the answer to every damage problem.",
+    "Using it without a clear engagement or repositioning purpose.",
+    "Overlapping it with another movement option that already solves the same job.",
+  ],
+  relatedSkillSlugs: ["resonating-shield", "armour-breaker", "rolling-slam"],
+  relatedBuildReason: (playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route when deciding how shield mobility supports the wider melee plan.`,
+};
+
 const skillDetailV2ContentBySlug: Partial<Record<string, SkillDetailV2Content>> = {
   [TIME_OF_NEED_SLUG]: timeOfNeedV2Content,
   [PROFANE_RITUAL_SLUG]: profaneRitualV2Content,
+  [GLACIAL_LANCE_SLUG]: glacialLanceV2Content,
+  [STORMCALLER_ARROW_SLUG]: stormcallerArrowV2Content,
+  [RAIN_OF_ARROWS_SLUG]: rainOfArrowsV2Content,
+  [SHIELD_CHARGE_SLUG]: shieldChargeV2Content,
 };
 
 const skillEnhancements: Record<string, SkillEnhancement> = {

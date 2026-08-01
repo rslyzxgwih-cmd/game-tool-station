@@ -304,7 +304,7 @@ export const topicClusterPages = {
     sections: [
       {
         title: "Decision Answer",
-        body: "This page is the entry hub for POE2 builds. The safest beginner route has one clear damage plan, one defensive habit, and one obvious upgrade path. Start with Monk Crossbow Build if you want a focused starter hub around crossbow range and Monk payoff timing.",
+        body: "The safest beginner route has one clear damage plan, one defensive habit, and one obvious upgrade path. Start with Monk Crossbow Build if you want a focused starter direction around crossbow range and Monk payoff timing.",
       },
       {
         title: "Best POE2 Starter Build",
@@ -547,7 +547,7 @@ export const topicClusterPages = {
     sections: [
       {
         title: "Decision Answer",
-        body: "Choose Mercenary if you want ranged combat with a tactical weapon feel. The best first version uses one clear skill, one rare-killer skill, and one escape or control option.",
+        body: "Choose Mercenary if you want ranged combat with a tactical weapon feel. The best starter route uses one clear skill, one rare-killer skill, and one escape or control option.",
       },
       {
         title: "Crossbow Build Rule",

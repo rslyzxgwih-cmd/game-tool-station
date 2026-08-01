@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BuildDetailV2, type BuildDetailV2Content } from "@/components/BuildDetailV2";
 import { builds, getBuildBySlug, getSkillBySlug } from "@/lib/content";
@@ -143,9 +142,82 @@ const mercenaryCrossbowSections = {
     {
       question: "What is the most common beginner mistake?",
       answer:
-        "The most common mistake is adding too many tools too early. Keep the first version focused, then expand once the leveling loop feels stable.",
+        "The most common mistake is adding too many tools too early. Keep the starter setup focused, then expand once the leveling loop feels stable.",
     },
   ],
+};
+
+const mercenaryCrossbowV2Content: BuildDetailV2Content = {
+  eyebrow: "MERCENARY CROSSBOW STARTER",
+  intro:
+    "A ranged starter route for players who want visible weapon impact, clear crossbow skill roles, and practical progression decisions. Keep the setup focused around pack clear, boss damage, and spacing before adding grenades or extra tools.",
+  badges: ["Mercenary", "Crossbow", "Starter", "Decision Guide"],
+  heroImage: {
+    src: "/images/builds/mercenary.webp",
+    alt: "Mercenary with a crossbow in a dark battlefield scene",
+  },
+  snapshotCaption: "Ranged crossbow starter",
+  snapshot: [
+    { label: "Class", value: "Mercenary" },
+    { label: "Playstyle", value: "Ranged crossbow with clear skill roles" },
+    { label: "Difficulty", value: "Medium, beginner-readable if you keep the first setup small" },
+    { label: "Core loop", value: "Clear packs, swap to boss damage, reposition before pressure reaches you" },
+    { label: "Main Strength", value: "Clear separation between pack clear, boss damage, and escape tools." },
+  ],
+  chooseThisBuild: mercenaryCrossbowSections.bestFor,
+  avoidThisBuild: mercenaryCrossbowSections.avoidIf,
+  whyTitle: "Why This Build Works",
+  whyParagraphs: [
+    "The Mercenary Crossbow starter works because each skill has a readable job. One part of the setup handles normal packs, another handles tougher targets, and spacing tools prevent ranged play from turning into standing still.",
+    "This makes the build easier for beginners to diagnose. If packs are slow, improve the clear tool. If rares or bosses are slow, improve the single-target option. If deaths are the problem, upgrade defenses and movement habits before adding more damage buttons.",
+    "The route also gives returning players a clean way to learn Mercenary without immediately turning the character into a complicated grenade setup.",
+  ],
+  coreSkills: [
+    {
+      name: "Fragmentation Rounds",
+      href: "/skills/fragmentation-rounds",
+      role: "Pack clear",
+      copy: "Use Fragmentation Rounds as the pack-clear reference point when normal enemies need focused crossbow coverage.",
+    },
+    {
+      name: "High Velocity Rounds",
+      href: "/skills/high-velocity-rounds",
+      role: "Tough-enemy damage",
+      copy: "Use High Velocity Rounds when rares or bosses need a more deliberate single-target answer.",
+    },
+    {
+      name: "Escape Shot",
+      href: "/skills/escape-shot",
+      role: "Spacing and safety",
+      copy: "Use Escape Shot before trying to trade hits. A ranged build still needs a clear way to reset distance.",
+    },
+  ],
+  levelingTitle: "Beginner Progression Route",
+  levelingRoute: mercenaryCrossbowSections.progression.map((group) => ({
+    title: group.title,
+    copy: group.items.join(" "),
+  })),
+  levelingNote:
+    "Keep the first setup small: one clear skill, one tough-enemy skill, and one spacing answer before adding more mechanics.",
+  upgradePriorities: mercenaryCrossbowSections.priorities.flatMap((group) =>
+    group.items.slice(0, 1).map((item) => `${group.title}: ${item}`),
+  ),
+  strengths: mercenaryCrossbowSections.strengths,
+  tradeoffs: mercenaryCrossbowSections.weaknesses,
+  relatedBuildsTitle: "Related Builds",
+  relatedReasonFor: (_slug, playstyle) =>
+    `Compare this ${playstyle.toLowerCase()} route if you want another ranged, beginner, or Mercenary direction.`,
+  ctaEyebrow: "Build Diagnosis",
+  ctaTitle: "Need to Compare Before Starting?",
+  ctaCopy: "Return to the Build Finder to compare crossbow, beginner, Monk, and other starter routes.",
+  primaryCta: {
+    label: "Compare POE2 Builds",
+    href: "/builds#featured-builds",
+  },
+  secondaryCta: {
+    label: "Use the Build Finder",
+    href: "/builds",
+  },
 };
 
 const sorceressSparkV2Content: BuildDetailV2Content = {
@@ -709,6 +781,178 @@ function relatedBuildsFor(build: Build) {
     .slice(0, 3);
 }
 
+function heroImageForBuild(build: Build) {
+  if (build.class === "Mercenary") {
+    return {
+      src: "/images/builds/mercenary.webp",
+      alt: "Mercenary crossbow build in a dark fantasy battlefield",
+    };
+  }
+
+  if (build.class === "Monk") {
+    return {
+      src: "/images/builds/monk.webp",
+      alt: "Monk build using lightning martial power",
+    };
+  }
+
+  if (build.class === "Ranger" || build.playstyle.toLowerCase().includes("bow")) {
+    return {
+      src: "/images/builds/lightning-arrow.webp",
+      alt: "Ranger build firing a lightning arrow",
+    };
+  }
+
+  if (build.class === "Sorceress" || build.class === "Witch") {
+    return {
+      src: "/images/builds/invoker.webp",
+      alt: "Caster build channeling blue magic",
+    };
+  }
+
+  return {
+    src: "/images/hero-bg.webp",
+    alt: "Dark fantasy POE2 battlefield background",
+  };
+}
+
+function safeAvoidItems(build: Build) {
+  const blockedPhrases = ["passive tree planner", "patch-sensitive", "exact patch", "exact dps", "dps math"];
+  const filtered = build.notFor.filter((item) => {
+    const normalized = item.toLowerCase();
+
+    return !blockedPhrases.some((phrase) => normalized.includes(phrase));
+  });
+
+  if (filtered.length > 0) {
+    return filtered.slice(0, 3);
+  }
+
+  return [
+    `You do not enjoy ${build.playstyle.toLowerCase()} pacing.`,
+    `You want a different ${build.class} identity before committing to this route.`,
+  ];
+}
+
+function roleForSkill(skillName: string, index: number) {
+  if (index === 0) {
+    return "Main build identity";
+  }
+
+  if (/escape|disengage|shield|time of need|chains|enfeeble/i.test(skillName)) {
+    return "Safety or control tool";
+  }
+
+  if (/bell|snipe|high velocity|boneshatter|perfect strike/i.test(skillName)) {
+    return "Tough-enemy payoff";
+  }
+
+  return "Supporting skill role";
+}
+
+function makeGenericBuildV2Content(build: Build): BuildDetailV2Content {
+  const mainSkill = build.coreSkills[0] ?? "the main skill";
+  const supportSkills = build.coreSkills.slice(1, 4);
+  const safeAvoid = safeAvoidItems(build);
+
+  return {
+    eyebrow: `${build.class.toUpperCase()} BUILD GUIDE`,
+    intro:
+      `${build.title} is a ${build.playstyle.toLowerCase()} route for players deciding whether this ${build.class} setup matches their next character. Keep the starter setup focused around ${mainSkill}, then add supporting skills only when they solve a clear progression problem.`,
+    badges: [build.class, build.playstyle, build.difficulty, "V2 Guide"],
+    heroImage: heroImageForBuild(build),
+    credibilityLine: guideCredibilityLine,
+    snapshotCaption: build.playstyle,
+    snapshot: [
+      { label: "Class", value: build.class },
+      { label: "Playstyle", value: build.playstyle },
+      { label: "Difficulty", value: build.difficulty },
+      { label: "Main Skill", value: mainSkill },
+      { label: "Best For", value: build.goodFor[0] ?? build.promise },
+      { label: "Main Strength", value: "A clear skill identity with practical progression priorities." },
+    ],
+    chooseThisBuild: build.goodFor.slice(0, 4),
+    avoidThisBuild: safeAvoid,
+    whyTitle: "Why This Route Works",
+    whyParagraphs: [
+      `${mainSkill} gives this build a clear first job. A good POE2 starter route should be easy to diagnose: one main action, a small number of support tools, and upgrades that reinforce the same character direction.`,
+      supportSkills.length > 0
+        ? `${supportSkills.join(", ")} support the route when a specific problem appears. Add them for coverage, safety, or tougher enemies instead of filling the skill bar with overlapping jobs.`
+        : "The route is strongest when the first combat loop stays readable before extra mechanics are added.",
+      "The best decision is not whether the build is perfect on paper. The useful question is whether it matches how you want to play, how much complexity you want to manage, and what problem your current character needs to solve next.",
+    ],
+    coreSkills: build.coreSkills.slice(0, 4).map((skillName, index) => {
+      const skill = getSkillBySlug(skillNameToSlug(skillName));
+
+      return {
+        name: skillName,
+        href: skill ? `/skills/${skill.slug}` : undefined,
+        role: roleForSkill(skillName, index),
+        copy:
+          index === 0
+            ? `Use ${skillName} as the main identity of this route before adding extra mechanics.`
+            : `Use ${skillName} when it solves a specific support job for the ${mainSkill} route.`,
+      };
+    }),
+    levelingTitle: "Safe Progression Route",
+    levelingRoute: [
+      {
+        title: "Establish the Main Skill",
+        copy: build.levelingPlan[0] ?? `Start by making ${mainSkill} feel reliable before adding extra tools.`,
+      },
+      {
+        title: "Add Support Only for a Reason",
+        copy:
+          build.levelingPlan[1] ??
+          "Add the next skill when clear, control, safety, or tougher enemies expose a real gap in the route.",
+      },
+      {
+        title: "Stabilize Defenses",
+        copy:
+          build.levelingPlan[2] ??
+          "Upgrade defenses whenever deaths cost more time than another small damage increase saves.",
+      },
+      {
+        title: "Transition Carefully",
+        copy:
+          "After the core loop works, compare related builds before changing the class identity, damage type, or combat rhythm.",
+      },
+    ],
+    levelingNote:
+      "Use this V2 page as a build-choice guide: it explains skill roles and progression priorities without making patch-specific power claims.",
+    upgradePriorities: [
+      `Keep ${mainSkill} functional before scaling side mechanics.`,
+      "Upgrade defenses when deaths interrupt progression.",
+      "Add coverage or control only when the current route clearly needs it.",
+      "Compare related builds before changing the whole character direction.",
+    ],
+    strengths: [
+      `Clear ${build.class} identity`,
+      `${build.playstyle} decision path`,
+      "Readable skill roles",
+      "Beginner-friendly progression checkpoints",
+    ],
+    tradeoffs: [
+      `This route is less suitable if you do not enjoy ${build.playstyle.toLowerCase()} gameplay.`,
+      "The build should stay focused early; adding too many unrelated skills can make progression harder to read.",
+    ],
+    relatedBuildsTitle: "Related Builds",
+    relatedReasonFor: (_slug, playstyle) =>
+      `Compare this ${playstyle.toLowerCase()} route if you want another way to solve the same class or progression decision.`,
+    ctaEyebrow: "Build Diagnosis",
+    ctaTitle: "Need a Different Route?",
+    ctaCopy: "Return to the Build Finder to compare other POE2 builds before committing to your next character.",
+    primaryCta: {
+      label: "Compare POE2 Builds",
+      href: "/builds#featured-builds",
+    },
+    secondaryCta: {
+      label: "Use the Build Finder",
+      href: "/builds",
+    },
+  };
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const build = getBuildBySlug(slug);
@@ -736,14 +980,12 @@ export default async function BuildDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const coreSkills = build.coreSkills.slice(0, 4);
-  const levelingPath = build.levelingPlan.slice(0, 5);
-  const reasons = build.goodFor.slice(0, 3);
   const relatedBuilds = relatedBuildsFor(build);
   const isMercenaryCrossbowWinner = build.slug === MERCENARY_CROSSBOW_SLUG;
   const isMercenaryRapidShot = build.slug === MERCENARY_RAPID_SHOT_SLUG;
   const isSorceressSparkStarter = build.slug === SORCERESS_SPARK_STARTER_SLUG;
   const v2ContentBySlug: Partial<Record<string, BuildDetailV2Content>> = {
+    [MERCENARY_CROSSBOW_SLUG]: mercenaryCrossbowV2Content,
     [BEGINNER_RANGED_STARTER_SLUG]: beginnerRangedV2Content,
     [WARRIOR_TOTEM_SLAM_SLUG]: warriorTotemSlamV2Content,
     [DRUID_HYBRID_STARTER_SLUG]: druidHybridV2Content,
@@ -783,248 +1025,18 @@ export default async function BuildDetailPage({ params }: PageProps) {
     );
   }
 
-  const v2Content = v2ContentBySlug[build.slug];
-
-  if (v2Content) {
-    return (
-      <BuildDetailV2
-        build={{
-          title: build.title,
-          class: build.class,
-          playstyle: build.playstyle,
-          difficulty: build.difficulty,
-        }}
-        relatedBuilds={relatedBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
-        content={v2Content}
-      />
-    );
-  }
+  const v2Content = v2ContentBySlug[build.slug] ?? makeGenericBuildV2Content(build);
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-8">
-      <h1 className="text-3xl font-black leading-tight text-ink md:text-4xl">{build.title}</h1>
-
-      {isMercenaryCrossbowWinner ? (
-        <section className="mt-6 border border-line bg-panel p-4">
-          <h2 className="text-lg font-black text-ink">Build Snapshot</h2>
-          <div className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-            {mercenaryCrossbowSections.snapshot.map((item) => (
-              <div key={item.label} className="border border-line bg-paper px-3 py-2">
-                <span className="font-black text-ink">{item.label}: </span>
-                {item.href ? (
-                  <Link href={item.href} className="font-bold text-moss hover:text-ink">
-                    {item.value}
-                  </Link>
-                ) : (
-                  item.value
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      <section className="mt-6 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Quick Answer</h2>
-        <p className="mt-2 text-sm leading-6 text-ink/72">
-          Best Build Guide: {build.title} is a {build.playstyle.toLowerCase()} POE2 build for{" "}
-          {build.class} players from the{" "}
-          <Link href="/" className="font-bold text-moss hover:text-ink">
-            POE2 Starter Tools
-          </Link>{" "}
-          guide hub. It is strong because it keeps the setup focused on{" "}
-          {coreSkills.slice(0, 2).join(" and ")} for leveling and endgame.
-        </p>
-      </section>
-
-      {isMercenaryCrossbowWinner ? (
-        <section className="mt-4 grid gap-4 md:grid-cols-2">
-          <div className="border border-line bg-panel p-4">
-            <h2 className="text-lg font-black text-ink">Who This Build Is Best For</h2>
-            <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-              {mercenaryCrossbowSections.bestFor.map((item) => (
-                <li key={item} className="border border-line bg-paper px-3 py-2">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="border border-line bg-panel p-4">
-            <h2 className="text-lg font-black text-ink">Who Should Avoid This Build</h2>
-            <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-              {mercenaryCrossbowSections.avoidIf.map((item) => (
-                <li key={item} className="border border-line bg-paper px-3 py-2">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Core Skills</h2>
-        <ul className="mt-3 grid gap-2 text-sm font-bold text-ink/72">
-          {coreSkills.map((skillName) => {
-            const skill = getSkillBySlug(skillNameToSlug(skillName));
-
-            return (
-              <li key={skillName} className="border border-line bg-paper px-3 py-2">
-                {skill ? (
-                  <Link href={`/skills/${skill.slug}`} className="text-moss hover:text-ink">
-                    {skill.name}
-                  </Link>
-                ) : (
-                  skillName
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-
-      {isMercenaryCrossbowWinner ? (
-        <section className="mt-4 grid gap-4 md:grid-cols-2">
-          <div className="border border-line bg-panel p-4">
-            <h2 className="text-lg font-black text-ink">Strengths</h2>
-            <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-              {mercenaryCrossbowSections.strengths.map((item) => (
-                <li key={item} className="border border-line bg-paper px-3 py-2">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="border border-line bg-panel p-4">
-            <h2 className="text-lg font-black text-ink">Weaknesses</h2>
-            <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-              {mercenaryCrossbowSections.weaknesses.map((item) => (
-                <li key={item} className="border border-line bg-paper px-3 py-2">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Leveling Path</h2>
-        <ol className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-          {levelingPath.map((step) => (
-            <li key={step} className="border border-line bg-paper px-3 py-2">
-              {step}
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {isMercenaryCrossbowWinner ? (
-        <section className="mt-4 border border-line bg-panel p-4">
-          <h2 className="text-lg font-black text-ink">Progression Priorities</h2>
-          <div className="mt-3 grid gap-3">
-            {mercenaryCrossbowSections.progression.map((group) => (
-              <div key={group.title} className="border border-line bg-paper px-3 py-2">
-                <h3 className="font-black text-ink">{group.title}</h3>
-                <ul className="mt-2 grid gap-1 text-sm leading-6 text-ink/72">
-                  {group.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Why This Build</h2>
-        <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-          {reasons.map((reason) => (
-            <li key={reason} className="border border-line bg-paper px-3 py-2">
-              {reason}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {isMercenaryCrossbowWinner ? (
-        <section className="mt-4 border border-line bg-panel p-4">
-          <h2 className="text-lg font-black text-ink">Gear, Passive, and Skill Priorities</h2>
-          <div className="mt-3 grid gap-3 md:grid-cols-3">
-            {mercenaryCrossbowSections.priorities.map((group) => (
-              <div key={group.title} className="border border-line bg-paper px-3 py-2">
-                <h3 className="font-black text-ink">{group.title}</h3>
-                <ul className="mt-2 grid gap-1 text-sm leading-6 text-ink/72">
-                  {group.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {isMercenaryCrossbowWinner ? (
-        <section className="mt-4 border border-line bg-panel p-4">
-          <h2 className="text-lg font-black text-ink">Common Beginner Mistakes</h2>
-          <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-            {mercenaryCrossbowSections.mistakes.map((item) => (
-              <li key={item} className="border border-line bg-paper px-3 py-2">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      {isMercenaryCrossbowWinner ? (
-        <section className="mt-4 border border-line bg-panel p-4">
-          <h2 className="text-lg font-black text-ink">Relevant Existing Pages</h2>
-          <div className="mt-3 grid gap-2 text-sm leading-6">
-            {mercenaryCrossbowSections.links.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="border border-line bg-paper px-3 py-2 text-ink/72 hover:text-moss"
-              >
-                <span className="font-black text-moss">{item.label}</span>
-                <span className="block text-ink/62">{item.note}</span>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {isMercenaryCrossbowWinner ? (
-        <section className="mt-4 border border-line bg-panel p-4">
-          <h2 className="text-lg font-black text-ink">FAQ</h2>
-          <div className="mt-3 grid gap-2">
-            {mercenaryCrossbowSections.faqs.map((item) => (
-              <div key={item.question} className="border border-line bg-paper px-3 py-2 text-sm leading-6">
-                <h3 className="font-black text-ink">{item.question}</h3>
-                <p className="mt-1 text-ink/72">{item.answer}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Related Builds</h2>
-        <div className="mt-3 grid gap-2 text-sm font-bold">
-          {relatedBuilds.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/builds/${item.slug}`}
-              className="border border-line bg-paper px-3 py-2 text-ink/72 hover:text-moss"
-            >
-              {item.title}
-            </Link>
-          ))}
-        </div>
-      </section>
-    </main>
+    <BuildDetailV2
+      build={{
+        title: build.title,
+        class: build.class,
+        playstyle: build.playstyle,
+        difficulty: build.difficulty,
+      }}
+      relatedBuilds={relatedBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
+      content={v2Content}
+    />
   );
 }

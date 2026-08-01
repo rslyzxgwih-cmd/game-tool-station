@@ -167,10 +167,10 @@ function createExpandedBuild(seed: BuildSeed, id: number): Build {
     difficulty: seed.difficulty,
     searchIntent: seed.searchIntent,
     promise: `A decision-first ${seed.playstyle.toLowerCase()} route for players who want ${seed.goal}.`,
-    content: `${seed.title} is for players deciding whether ${seed.mainSkill} should be their main skill direction. Keep the first version narrow: one main skill, two support tools, and clear defensive priorities before chasing endgame scaling.`,
+    content: `${seed.title} is for players deciding whether ${seed.mainSkill} should be their main skill direction. Keep the starter setup narrow: one main skill, two support tools, and clear defensive priorities before chasing endgame scaling.`,
     coreSkills: [seed.mainSkill, ...seed.supportSkills],
-    goodFor: [`Players who want ${seed.goal}`, `${seed.class} players comparing build directions`, "Searchers who need a fast starter decision"],
-    notFor: [seed.avoid, "Players who want a full passive tree planner", "Players looking for exact patch-sensitive DPS math"],
+    goodFor: [`Players who want ${seed.goal}`, `${seed.class} players comparing build directions`, "Players who need a fast starter decision"],
+    notFor: [seed.avoid, "Players who want a different combat rhythm", "Players who prefer a more specialized route"],
     levelingPlan: [
       `Use ${seed.mainSkill} as the main identity before adding extra damage packages.`,
       `Add ${seed.supportSkills[0]} when clear, control, or boss pressure starts to fall behind.`,

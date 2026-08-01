@@ -22,24 +22,25 @@ export default function MercenaryGuidePage() {
   const coreSkills = skillSlugs.map((slug) => getSkillBySlug(slug)).filter(Boolean);
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-8">
-      <h1 className="text-3xl font-black leading-tight text-ink md:text-4xl">POE2 Mercenary Guide</h1>
+    <main className="bg-[#030304] text-zinc-100">
+      <article className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
+      <h1 className="text-3xl font-black leading-tight text-white md:text-5xl">POE2 Mercenary Guide</h1>
 
-      <section className="mt-6 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Quick Answer</h2>
-        <p className="mt-2 text-sm leading-6 text-ink/72">
+      <section className="mt-6 border border-amber-300/20 bg-amber-300/10 p-5">
+        <h2 className="text-lg font-black text-white">Quick Answer</h2>
+        <p className="mt-2 text-sm leading-6 text-amber-50">
           Best Build Guide: Mercenary is a ranged crossbow route for players who want weapon feel and clear skill jobs.
           It is strong because pack clear, boss damage, and spacing can be handled by separate skills.
         </p>
       </section>
 
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Core Skills</h2>
-        <ul className="mt-3 grid gap-2 text-sm font-bold text-ink/72">
+      <section className="mt-4 border border-cyan-400/15 bg-zinc-950/80 p-5">
+        <h2 className="text-lg font-black text-white">Core Skills</h2>
+        <ul className="mt-3 grid gap-2 text-sm font-bold text-zinc-300">
           {coreSkills.map((skill) =>
             skill ? (
-              <li key={skill.slug} className="border border-line bg-paper px-3 py-2">
-                <Link href={`/skills/${skill.slug}`} className="text-moss hover:text-ink">
+              <li key={skill.slug} className="border border-cyan-300/15 bg-black/25 px-3 py-2">
+                <Link href={`/skills/${skill.slug}`} className="text-cyan-200 hover:text-cyan-100">
                   {skill.name}
                 </Link>
               </li>
@@ -48,35 +49,35 @@ export default function MercenaryGuidePage() {
         </ul>
       </section>
 
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Leveling Path</h2>
-        <ol className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-          <li className="border border-line bg-paper px-3 py-2">Start with Fragmentation Rounds for pack clear.</li>
-          <li className="border border-line bg-paper px-3 py-2">Add High Velocity Rounds before rare and boss fights slow down.</li>
-          <li className="border border-line bg-paper px-3 py-2">Use escape and spacing tools before adding more damage buttons.</li>
-          <li className="border border-line bg-paper px-3 py-2">Add grenades only after the crossbow loop feels stable.</li>
-          <li className="border border-line bg-paper px-3 py-2">Compare Ranger or Beginner Builds if reload rhythm feels too busy.</li>
+      <section className="mt-4 border border-cyan-400/15 bg-zinc-950/80 p-5">
+        <h2 className="text-lg font-black text-white">Leveling Path</h2>
+        <ol className="mt-3 grid gap-2 text-sm leading-6 text-zinc-300">
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Start with Fragmentation Rounds for pack clear.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Add High Velocity Rounds before rare and boss fights slow down.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Use escape and spacing tools before adding more damage buttons.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Add grenades only after the crossbow loop feels stable.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Compare Ranger or Beginner Builds if reload rhythm feels too busy.</li>
         </ol>
       </section>
 
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Why This Build</h2>
-        <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-          <li className="border border-line bg-paper px-3 py-2">Clear separation between pack clear and boss damage.</li>
-          <li className="border border-line bg-paper px-3 py-2">Strong ranged spacing for campaign safety.</li>
-          <li className="border border-line bg-paper px-3 py-2">Direct route into crossbow and grenade variants.</li>
+      <section className="mt-4 border border-cyan-400/15 bg-zinc-950/80 p-5">
+        <h2 className="text-lg font-black text-white">Why This Build</h2>
+        <ul className="mt-3 grid gap-2 text-sm leading-6 text-zinc-300">
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Clear separation between pack clear and boss damage.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Strong ranged spacing for campaign safety.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Direct route into crossbow and grenade variants.</li>
         </ul>
       </section>
 
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Related Builds</h2>
+      <section className="mt-4 border border-cyan-400/15 bg-zinc-950/80 p-5">
+        <h2 className="text-lg font-black text-white">Related Builds</h2>
         <div className="mt-3 grid gap-2 text-sm font-bold">
           {relatedBuilds.map((item) =>
             item ? (
               <Link
                 key={item.slug}
                 href={`/builds/${item.slug}`}
-                className="border border-line bg-paper px-3 py-2 text-ink/72 hover:text-moss"
+                className="border border-cyan-300/15 bg-black/25 px-3 py-2 text-zinc-300 hover:text-cyan-100"
               >
                 {item.title}
               </Link>
@@ -84,6 +85,7 @@ export default function MercenaryGuidePage() {
           )}
         </div>
       </section>
+      </article>
     </main>
   );
 }

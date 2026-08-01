@@ -22,24 +22,25 @@ export default function RangerBuildsPage() {
   const coreSkills = skillSlugs.map((slug) => getSkillBySlug(slug)).filter(Boolean);
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-8">
-      <h1 className="text-3xl font-black leading-tight text-ink md:text-4xl">POE2 Ranger Builds</h1>
+    <main className="bg-[#030304] text-zinc-100">
+      <article className="mx-auto max-w-5xl px-4 py-8 sm:py-10">
+      <h1 className="text-3xl font-black leading-tight text-white md:text-5xl">POE2 Ranger Builds</h1>
 
-      <section className="mt-6 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Quick Answer</h2>
-        <p className="mt-2 text-sm leading-6 text-ink/72">
+      <section className="mt-6 border border-amber-300/20 bg-amber-300/10 p-5">
+        <h2 className="text-lg font-black text-white">Quick Answer</h2>
+        <p className="mt-2 text-sm leading-6 text-amber-50">
           Best Build Guide: Ranger is a fast bow route for players who want range, movement, and simple clear.
           It is strong because Lightning Arrow and escape tools make campaign leveling direct.
         </p>
       </section>
 
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Core Skills</h2>
-        <ul className="mt-3 grid gap-2 text-sm font-bold text-ink/72">
+      <section className="mt-4 border border-cyan-400/15 bg-zinc-950/80 p-5">
+        <h2 className="text-lg font-black text-white">Core Skills</h2>
+        <ul className="mt-3 grid gap-2 text-sm font-bold text-zinc-300">
           {coreSkills.map((skill) =>
             skill ? (
-              <li key={skill.slug} className="border border-line bg-paper px-3 py-2">
-                <Link href={`/skills/${skill.slug}`} className="text-moss hover:text-ink">
+              <li key={skill.slug} className="border border-cyan-300/15 bg-black/25 px-3 py-2">
+                <Link href={`/skills/${skill.slug}`} className="text-cyan-200 hover:text-cyan-100">
                   {skill.name}
                 </Link>
               </li>
@@ -48,34 +49,34 @@ export default function RangerBuildsPage() {
         </ul>
       </section>
 
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Leveling Path</h2>
-        <ol className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-          <li className="border border-line bg-paper px-3 py-2">Use one bow clear skill as the campaign anchor.</li>
-          <li className="border border-line bg-paper px-3 py-2">Keep an escape skill ready before adding damage layers.</li>
-          <li className="border border-line bg-paper px-3 py-2">Upgrade bow damage whenever clear starts falling behind.</li>
-          <li className="border border-line bg-paper px-3 py-2">Move into poison or area routes after the starter loop is stable.</li>
+      <section className="mt-4 border border-cyan-400/15 bg-zinc-950/80 p-5">
+        <h2 className="text-lg font-black text-white">Leveling Path</h2>
+        <ol className="mt-3 grid gap-2 text-sm leading-6 text-zinc-300">
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Use one bow clear skill as the campaign anchor.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Keep an escape skill ready before adding damage layers.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Upgrade bow damage whenever clear starts falling behind.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Move into poison or area routes after the starter loop is stable.</li>
         </ol>
       </section>
 
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Why This Build</h2>
-        <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-          <li className="border border-line bg-paper px-3 py-2">Fast ranged leveling.</li>
-          <li className="border border-line bg-paper px-3 py-2">Simple bow skill package.</li>
-          <li className="border border-line bg-paper px-3 py-2">Clear beginner upgrade priorities.</li>
+      <section className="mt-4 border border-cyan-400/15 bg-zinc-950/80 p-5">
+        <h2 className="text-lg font-black text-white">Why This Build</h2>
+        <ul className="mt-3 grid gap-2 text-sm leading-6 text-zinc-300">
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Fast ranged leveling.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Simple bow skill package.</li>
+          <li className="border border-cyan-300/15 bg-black/25 px-3 py-2">Clear beginner upgrade priorities.</li>
         </ul>
       </section>
 
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Related Builds</h2>
+      <section className="mt-4 border border-cyan-400/15 bg-zinc-950/80 p-5">
+        <h2 className="text-lg font-black text-white">Related Builds</h2>
         <div className="mt-3 grid gap-2 text-sm font-bold">
           {relatedBuilds.map((item) =>
             item ? (
               <Link
                 key={item.slug}
                 href={`/builds/${item.slug}`}
-                className="border border-line bg-paper px-3 py-2 text-ink/72 hover:text-moss"
+                className="border border-cyan-300/15 bg-black/25 px-3 py-2 text-zinc-300 hover:text-cyan-100"
               >
                 {item.title}
               </Link>
@@ -83,6 +84,7 @@ export default function RangerBuildsPage() {
           )}
         </div>
       </section>
+      </article>
     </main>
   );
 }

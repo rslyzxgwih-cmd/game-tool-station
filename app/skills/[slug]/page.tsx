@@ -672,6 +672,58 @@ function relatedSkillsFor(skill: Skill) {
     .slice(0, 6);
 }
 
+function makeGenericSkillV2Content(skill: Skill): SkillDetailV2Content {
+  const primaryTag = skill.tags[0] ?? "core";
+  const supportTags = skill.tags.slice(1, 3);
+
+  return {
+    eyebrow: `${primaryTag.toUpperCase()} SKILL GUIDE`,
+    directAnswer: `Use ${skill.name} when your current build specifically needs ${skill.bestFor.toLowerCase().replace(/\.$/, "")}. Skip it for now if another skill already solves that job more cleanly or if your main build direction is still unclear.`,
+    whatItDoes: [
+      `${skill.name} is a POE2 ${skill.tags.join(", ")} skill. Its practical value comes from the role it fills inside a build, not from being added to every character that can equip it.`,
+      `${skill.description} The important decision is whether your class, weapon, damage type, and support tools already point toward the same role.`,
+    ],
+    usefulWhen: [
+      `Your build needs ${skill.bestFor.toLowerCase().replace(/\.$/, "")}.`,
+      `Your current route already supports ${primaryTag}${supportTags.length ? ` and ${supportTags.join(", ")}` : ""}.`,
+      "The skill has one clear job beside your main damage or defense plan.",
+      "Adding it makes the character easier to play or easier to diagnose.",
+    ],
+    mayNotFitWhen: [
+      "The main build direction is still changing every few levels.",
+      "Another skill already handles the same job with less setup.",
+      "You would need to split upgrades across unrelated damage or utility plans.",
+    ],
+    practicalPrinciples: [
+      {
+        title: "Assign One Job",
+        copy: `Decide whether ${skill.name} is meant to handle clear, tougher enemies, mobility, control, recovery, or support before adding more skills around it.`,
+      },
+      {
+        title: "Respect the Tags",
+        copy: `The page tags this as ${skill.tags.join(", ")}. The surrounding build should reinforce those tags instead of pulling the character in a different direction.`,
+      },
+      {
+        title: "Add It When Needed",
+        copy: "During leveling, add the skill because it solves a visible problem. Do not add it only because a slot is open.",
+      },
+      {
+        title: "Compare Nearby Options",
+        copy: "If the role overlaps with another skill, choose the option that makes the build easier to understand and upgrade.",
+      },
+    ],
+    commonMistakes: [
+      `Adding ${skill.name} before the main combat loop is stable.`,
+      "Using multiple skills for the same job without a clear reason.",
+      "Ignoring defenses or positioning because a new skill feels stronger.",
+      "Keeping the skill after the build no longer needs the role it provides.",
+    ],
+    relatedSkillSlugs: relatedSkillsFor(skill).slice(0, 3).map((item) => item.slug),
+    relatedBuildReason: (playstyle) =>
+      `Compare this ${playstyle.toLowerCase()} route to see whether ${skill.name} belongs in a complete build decision.`,
+  };
+}
+
 function classLinksForSkill(skill: Skill): SkillLink[] {
   const links: SkillLink[] = [];
 
@@ -799,261 +851,22 @@ export default async function SkillDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const skillDetailV2Content = skillDetailV2ContentBySlug[skill.slug];
-
-  if (skillDetailV2Content) {
-    const relatedBuilds = buildsForSkill(skill);
-    const relatedSkills = skillDetailV2Content.relatedSkillSlugs
-      .map((relatedSlug) => getSkillBySlug(relatedSlug))
-      .filter((item): item is Skill => Boolean(item));
-
-    return (
-      <SkillDetailV2
-        skill={{
-          name: skill.name,
-          description: skill.description,
-          tags: skill.tags,
-        }}
-        content={skillDetailV2Content}
-        relatedBuilds={relatedBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
-        relatedSkills={relatedSkills.map(({ slug, name, description }) => ({ slug, name, description }))}
-      />
-    );
-  }
-
-  const usedInBuilds = buildsForSkill(skill);
-  const usage = usageForSkill(skill);
-  const enhancement = skillEnhancements[skill.slug];
-  const relatedSkills = relatedSkillsFor(skill);
-  const classLinks = classLinksForSkill(skill);
-  const supportAdvice = supportGemAdvice(skill);
-  const scaling = scalingAdvice(skill);
-  const faqItems = faqForSkill(skill, enhancement);
+  const skillDetailV2Content = skillDetailV2ContentBySlug[skill.slug] ?? makeGenericSkillV2Content(skill);
+  const relatedBuilds = buildsForSkill(skill);
+  const relatedSkills = skillDetailV2Content.relatedSkillSlugs
+    .map((relatedSlug) => getSkillBySlug(relatedSlug))
+    .filter((item): item is Skill => Boolean(item));
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-8">
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: faqItems.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })),
-        }}
-      />
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Skills",
-              item: absoluteUrl("/skills"),
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: skill.name,
-              item: absoluteUrl(`/skills/${skill.slug}`),
-            },
-          ],
-        }}
-      />
-      <h1 className="text-3xl font-black leading-tight text-ink md:text-4xl">{skill.name}</h1>
-
-      <section className="mt-6 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Skill Overview</h2>
-        <div className="mt-2 grid gap-3 text-sm leading-6 text-ink/72">
-          <p>
-            {skill.name} is a POE2 skill tagged as {skill.tags.join(", ")}. It is best understood as a decision tool:
-            choose it when your build needs {skill.bestFor.toLowerCase().replace(/\.$/, "")}. The important question is
-            not whether the skill is generally good, but whether it solves a specific job inside your current build.
-          </p>
-          <p>
-            {skill.description} That makes the skill most useful when the rest of the character already supports the
-            same role. If the build has no matching damage type, class identity, weapon package, or utility need, adding
-            {` ${skill.name} `} can create clutter instead of progress.
-          </p>
-          <p>
-            {enhancement?.quickSummary ??
-              `For beginners, ${skill.name} should be added after the main damage loop is readable. Use this page to decide whether the skill belongs in your current route, which builds can use it, and which related skills should be compared before committing.`}
-          </p>
-        </div>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">How the Skill Works</h2>
-        <div className="mt-2 grid gap-3 text-sm leading-6 text-ink/72">
-          <p>
-            In practical build planning, {skill.name} should be assigned one primary job. That job may be clear,
-            single-target damage, control, recovery, setup, movement, or support. If the same skill is expected to solve
-            every problem at once, the build usually becomes harder to evaluate.
-          </p>
-          <p>
-            {skill.decisionRule} This rule is especially important while leveling because early characters have fewer
-            passive points, weaker gear, and less room for complicated rotations. A skill that is excellent later can
-            still feel weak if the campaign version of the build cannot support it yet.
-          </p>
-        </div>
-        <ul className="mt-3 grid gap-2 text-sm leading-6 text-ink/72">
-          {usage.map((item) => (
-            <li key={item} className="border border-line bg-paper px-3 py-2">
-              {item}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Scaling</h2>
-        <div className="mt-2 grid gap-3 text-sm leading-6 text-ink/72">
-          {scaling.map((item) => (
-            <p key={item}>{item}</p>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Best Support Gems</h2>
-        <div className="mt-2 grid gap-3 text-sm leading-6 text-ink/72">
-          {supportAdvice.map((item) => (
-            <p key={item}>{item}</p>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Best Classes</h2>
-        <p className="mt-2 text-sm leading-6 text-ink/72">
-          The best class for {skill.name} is the one that already supports {skill.tags.join(", ")} decisions. Do not
-          choose a class only because the skill is interesting; choose the class that gives the skill a clear build
-          home, matching passives, and a realistic leveling route.
-        </p>
-        <div className="mt-3 grid gap-2 text-sm leading-6">
-          {classLinks.map((item) => (
-            <Link key={item.href} href={item.href} className="border border-line bg-paper px-3 py-2 text-ink/72 hover:text-moss">
-              <span className="font-black text-moss">{item.label}</span>
-              <span className="block text-ink/62">{item.note}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Best Builds</h2>
-        <p className="mt-2 text-sm leading-6 text-ink/72">
-          The best builds for {skill.name} are existing routes where the skill's tags and job match the page's class,
-          playstyle, or core skill package. Use these pages to decide whether the skill should be a main identity, a
-          support layer, or a comparison point before choosing another route.
-        </p>
-        <div className="mt-3 grid gap-2 text-sm font-bold">
-          {usedInBuilds.map((build) => (
-            <Link
-              key={build.slug}
-              href={`/builds/${build.slug}`}
-              className="border border-line bg-paper px-3 py-2 text-ink/72 hover:text-moss"
-            >
-              {build.title}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Leveling Tips</h2>
-        <div className="mt-2 grid gap-3 text-sm leading-6 text-ink/72">
-          <p>
-            Beginner players should add {skill.name} only when it clearly improves clear, boss damage, or safety. If
-            the skill does not solve one of those problems, wait until the main build is stable enough to test it.
-          </p>
-          <p>
-            In early acts, keep the skill package small. Leveling slows down when every new skill becomes part of the
-            rotation before the player understands the core loop. If {skill.name} is a support or utility skill, add it
-            after the main damage skill already clears normal packs.
-          </p>
-          <p>
-            In mid game, compare the skill against the actual problem you are facing. If rares take too long, choose
-            single-target support. If packs spread out, choose coverage. If deaths are the problem, choose defense,
-            control, or recovery. {skill.name} is worth keeping only when it improves that specific bottleneck.
-          </p>
-          <p>
-            In endgame transition, make the skill prove its value again. A skill that helped during campaign may become
-            optional once gear, supports, and passive priorities change. Keep it if it still supports the build's main
-            job; replace it if another related skill handles the job more cleanly.
-          </p>
-          {enhancement ? enhancement.levelingAdvice.map((item) => <p key={item}>{item}</p>) : null}
-        </div>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Advanced Tips</h2>
-        <div className="mt-2 grid gap-3 text-sm leading-6 text-ink/72">
-          <p>
-            Advanced use of {skill.name} starts with role discipline. Do not judge the skill by isolated damage or one
-            highlight moment. Judge it by whether it improves the build's most important repeatable situation: clearing
-            maps, killing bosses, controlling danger, recovering from mistakes, or enabling another skill.
-          </p>
-          <p>
-            If {skill.name} is a main skill, keep support gems, passives, and gear pointed toward the same role. If it
-            is a support skill, avoid overinvesting until the main damage plan is already solved. This prevents the
-            common mistake of building half a main skill and half a support package without either one becoming strong.
-          </p>
-          <p>
-            The best advanced test is simple: remove the skill mentally and ask what gets worse. If the build loses
-            clear, single-target damage, safety, or rhythm, the skill has a real job. If nothing important changes, use
-            a related skill or build page to find a cleaner option.
-          </p>
-        </div>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">FAQ</h2>
-        <div className="mt-3 grid gap-2">
-          {faqItems.map((item) => (
-            <div key={item.question} className="border border-line bg-paper px-3 py-2 text-sm leading-6">
-              <h3 className="font-black text-ink">{item.question}</h3>
-              <p className="mt-1 text-ink/72">{item.answer}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Related Skills</h2>
-        <p className="mt-2 text-sm leading-6 text-ink/72">
-          Related skills share tags or solve nearby build problems. Compare them when {skill.name} almost fits, but the
-          build needs a cleaner answer for clear, bossing, control, or safety.
-        </p>
-        <div className="mt-3 grid gap-2 text-sm font-bold">
-          {relatedSkills.map((item) => (
-            <Link key={item.slug} href={`/skills/${item.slug}`} className="border border-line bg-paper px-3 py-2 text-ink/72 hover:text-moss">
-              {item.name}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-4 border border-line bg-panel p-4">
-        <h2 className="text-lg font-black text-ink">Related Builds</h2>
-        <p className="mt-2 text-sm leading-6 text-ink/72">
-          These build pages are the next step after reading the skill guide. Open them when you want to see how
-          {` ${skill.name} `} fits into an actual class route rather than evaluating the skill in isolation.
-        </p>
-        <div className="mt-3 grid gap-2 text-sm font-bold">
-          {usedInBuilds.map((build) => (
-            <Link key={build.slug} href={`/builds/${build.slug}`} className="border border-line bg-paper px-3 py-2 text-ink/72 hover:text-moss">
-              {build.title}
-            </Link>
-          ))}
-        </div>
-      </section>
-    </main>
+    <SkillDetailV2
+      skill={{
+        name: skill.name,
+        description: skill.description,
+        tags: skill.tags,
+      }}
+      content={skillDetailV2Content}
+      relatedBuilds={relatedBuilds.map(({ slug, title, playstyle }) => ({ slug, title, playstyle }))}
+      relatedSkills={relatedSkills.map(({ slug, name, description }) => ({ slug, name, description }))}
+    />
   );
 }
